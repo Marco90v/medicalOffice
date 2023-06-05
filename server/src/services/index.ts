@@ -1,4 +1,4 @@
-import { login, pasientesSchema } from "../model/schema";
+import { login, pasientesSchema, userSchema } from "../model/schema";
 import main from "./conect";
 
 export const loginDB = ({user, password}:login) => {
@@ -8,13 +8,15 @@ export const loginDB = ({user, password}:login) => {
             const collection = db.model('login', login);
             const data = await collection.findOne({user, password});
             if(data){
-                const users = db.model('users', login);
+                const users = db.model('users', userSchema);
                 const user = await users.findOne( {user:data.user}, {"name":1, "user":1, "_id":1} );
+                // const user = await users.findOne( {user:data.user} );
+                // console.log(user);
                 db.disconnect();
                 resolve(user);
             }else{
                 db.disconnect();
-                reject({error:"Invalid user or password"});
+                reject({error:"Incorrect credentials, please verify the data"});
             }
         } catch (error) {
             reject("LoginDB query failed");

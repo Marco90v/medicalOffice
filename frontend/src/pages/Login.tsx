@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired } from "../components";
 import consultorio from "../assets/consultorio-medico.webp";
 import see from "../assets/show-alt-regular-24.png";
 import noSee from "../assets/low-vision-regular-24.png";
+import { Context } from "../context";
 
 interface IFormInput {
     user: string,
     password: string,
 }
+interface error {
+    error: string
+}
 
 function Login(){
+    const { dispatch } = useContext(Context);
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
     const [show, setShow] = useState(false);
-    const [error, setError] = useState();
+    const [error, setError] = useState<error | undefined>();
 
     const handlerShow = () => setShow(!show);
 
@@ -22,14 +27,15 @@ function Login(){
             method: "POST",
             body:JSON.stringify(data),
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             mode: 'cors',
         });
         if(resLogin.ok){
             setError(undefined);
             const token:string = await resLogin.text();
-            console.log(token);
+            dispatch({ type:"addToken", token });
+            // console.log(token);
         }else{
             const e = await resLogin.json();
             setError(e);
@@ -62,7 +68,7 @@ function Login(){
                     </div>
                     { errors.user &&  <FiledRequired text={"This field is required"} /> }
                     <button type="submit" className="bg-green-500 py-2 px-10 rounded-md m-auto">Sign in</button>
-                    { error &&  <FiledRequired text={"Incorrect credentials, please verify the data"} /> }
+                    { error &&  <FiledRequired text={error?.error} /> }
                 </form>
             </section>
         </main>

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import { loginReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";

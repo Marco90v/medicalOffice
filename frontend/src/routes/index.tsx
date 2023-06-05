@@ -1,9 +1,12 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import { Login } from "../pages";
+import { Dashboard, Login } from "../pages";
+import { useContext } from "react";
+import { Context } from "../context";
 
 const VerifySession = () => {
   // const {token} = useSelector((state:store) => state.session);
-  // if(token) return <Navigate to={'/dashboard/home'} />
+  const { state:{token} } = useContext(Context);
+  if(token) return <Navigate to={'/dashboard'} />;
   return <Login />;
   // return null;
 };
@@ -30,7 +33,8 @@ export const router = createBrowserRouter(
     createRoutesFromElements([
       <Route path="/" element={<VerifySession/>} />,
       // <Route path="dashboard"  element={<Navigate to="/dashboard/home" />} >
-        <Route path="dashboard" element={<ProtecteRoutes/>} >
+        // <Route path="dashboard" element={<ProtecteRoutes/>} >
+        <Route path="dashboard" element={<Dashboard />} >
           {/* <Route path="home" element={<Inicio />} />,
           <Route path="classes" element={<Classes />} />,
           <Route path="profession" element={<Profession />} />,
