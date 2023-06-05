@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import { getToken, setToken } from "../utils";
+import { getToken, removeToken, setToken } from "../utils";
 
 const initialState = {
     token: getToken(),
@@ -14,6 +14,11 @@ const reducer = (state:any, action:any) => {
             return {
                 ...state,
                 token: action.token,
+            };
+        case "removeToken":
+            removeToken();
+            return {
+                initialState
             };
         default:
             return state;

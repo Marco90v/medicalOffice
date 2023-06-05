@@ -4,3 +4,6 @@ export function setToken(token:string) {
 export function getToken() {
     return localStorage.getItem("token") || undefined;
 }
+export function removeToken() {
+    localStorage.removeItem("token");
+}

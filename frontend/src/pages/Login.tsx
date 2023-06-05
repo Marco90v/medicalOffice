@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Context } from "../context";
 import { FiledRequired } from "../components";
 import consultorio from "../assets/consultorio-medico.webp";
 import see from "../assets/show-alt-regular-24.png";
 import noSee from "../assets/low-vision-regular-24.png";
-import { Context } from "../context";
 
 interface IFormInput {
     user: string,
@@ -35,7 +35,6 @@ function Login(){
             setError(undefined);
             const token:string = await resLogin.text();
             dispatch({ type:"addToken", token });
-            // console.log(token);
         }else{
             const e = await resLogin.json();
             setError(e);
