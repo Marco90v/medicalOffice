@@ -16,3 +16,7 @@ interface token {
     name: string,
     user: string
 }
+interface specialty {
+    _id: string,
+    name: string
+}

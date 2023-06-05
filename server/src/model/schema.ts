@@ -24,3 +24,8 @@ export const pasientesSchema = new Schema({
     name: String,
     lastName: String,
 });
+
+export const especialidadesShema = new Schema({
+    _id: ObjectId,
+    name: String,
+});

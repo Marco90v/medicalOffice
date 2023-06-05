@@ -1,8 +1,8 @@
-import { login, pasientesSchema, userSchema } from "../model/schema";
+import { especialidadesShema, login, pasientesSchema, userSchema } from "../model/schema";
 import main from "./conect";
 
 export const loginDB = ({user, password}:login) => {
-    return new Promise( async (resolve,reject)=>{
+    return new Promise( async (resolve, reject)=>{
         try {
             const db = await main();
             const collection = db.model('login', login);
@@ -22,5 +22,24 @@ export const loginDB = ({user, password}:login) => {
             reject("LoginDB query failed");
         }
 
+    });
+}
+
+export const getSpecialtyDB = () => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            const db = await main();
+            const collection = db.model('especialidades', especialidadesShema);
+            const especialidades:specialty[] | undefined = await collection.find({});
+            if(especialidades){
+                db.disconnect();
+                resolve(especialidades);
+            }else{
+                db.disconnect();
+                reject({error:"No specialties were found"});
+            }
+        }catch(error){
+            reject({error:"getSpecialty query failed"});
+        }
     });
 }

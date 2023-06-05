@@ -1,4 +1,4 @@
-import { CookieOptions, Request, Response } from "express";
+import { Request, Response } from "express";
 import { loginReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
@@ -13,4 +13,14 @@ export const login = (req:Request,res:Response):void => {
     }else{
         res.status(400).json({error:"Error en la estructura de datos"});
     }
+}
+
+export const specialty = (req:Request,res:Response):void => {
+    services.getSpecialtyDB()
+    .then((resolve)=>{
+        res.status(200).json(resolve);
+    })
+    .catch((error)=>{
+        res.status(400).json(error);
+    });
 }
