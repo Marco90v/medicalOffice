@@ -1,5 +1,5 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useLocation } from "react-router-dom";
-import { Dashboard, Login } from "../pages";
+import { Dashboard, Home, Login, New } from "../pages";
 import { useContext } from "react";
 import { Context } from "../context";
 
@@ -26,8 +26,8 @@ export const router = createBrowserRouter(
     createRoutesFromElements([
       <Route path="/" element={<VerifySession/>} />,
         <Route path="dashboard" element={<ProtecteRoutes/>} >
-          <Route path="" element={<>Home</>} />
-          <Route path="new" element={<>New</>} />
+          <Route path="" element={<Home />} />
+          <Route path="new" element={<New />} />
           <Route path="report" element={<>Report</>} />
         </Route>
       ,
