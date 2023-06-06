@@ -5,7 +5,7 @@ import { FiledRequired } from "../components";
 import consultorio from "../assets/consultorio-medico.webp";
 import see from "../assets/show-alt-regular-24.png";
 import noSee from "../assets/low-vision-regular-24.png";
-import { useFetch } from "../hooks/inedx";
+import { useFetch } from "../hooks";
 
 interface IFormInput {
     user: string,

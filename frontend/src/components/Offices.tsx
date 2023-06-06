@@ -1,6 +1,6 @@
 import { UseFormRegister } from "react-hook-form";
 import { IFormInput, specialist, specialty } from "../type";
-import { useFetch } from "../hooks/inedx";
+import { useFetch } from "../hooks";
 
 interface props {
     register:UseFormRegister<IFormInput>,

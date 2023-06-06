@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFetch } from "../hooks/inedx";
+import { useFetch } from "../hooks";
 import { specialty } from "../type";
 
 import loaderIcon from "../assets/loader-alt-regular-24.png";
@@ -14,7 +14,7 @@ function Specialty() {
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
     const [specialtys, setSpecialty] = useState<specialty[] | undefined>();
 
-    const [ specialtysFetch, _, errorFetchGet ] = useFetch("specialty");
+    const [ specialtysFetch, , errorFetchGet ] = useFetch("specialty");
     const [ specialty, setspecialty, errorSetSpecialty ] = useFetch();
 
     useEffect(() => {
