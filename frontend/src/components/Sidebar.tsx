@@ -5,11 +5,14 @@ import { Context } from "../context";
 import homeIcon from "../assets/home-alt-2-solid-24.png";
 import newIcon from "../assets/file-plus-solid-24.png";
 import reportIcon from "../assets/report-solid-24.png";
+import editIcon from "../assets/edit-solid-24.png";
 
 const menu = [
     {name:"Home", link:"", icon:homeIcon},
     {name:"New", link:"new", icon:newIcon},
     {name:"Report", link:"report", icon:reportIcon},
+    {name:"Specialty", link:"specialty", icon:editIcon},
+    {name:"Specialist", link:"specialist", icon:editIcon},
 ];
 
 function Item () {

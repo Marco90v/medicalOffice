@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, specialistByspecialtyReqValidator } from "./validator";
+import { loginReqValidator, specialistByspecialtyReqValidator, specialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -23,6 +23,18 @@ export const specialty = (req:Request,res:Response):void => {
     .catch((error)=>{
         res.status(400).json(error);
     });
+}
+
+export const setSpecialty = (req:Request,res:Response) => {
+    const data = specialtyReqValidator(req.body);
+    if(data){
+        services.setSpecialtyDB(data)
+        .then( (resolve) => {
+            res.status(200).json(resolve);
+        } )
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
 }
 
 export const specialistByspecialty = (req:Request,res:Response) => {

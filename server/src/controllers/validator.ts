@@ -8,6 +8,14 @@ export const loginReqValidator = (object:login):login | false =>{
     } : 
     false;
 }
+export const specialtyReqValidator = (object:setSpecialty):setSpecialty | false => {
+    return 'specialty' in object
+    && typeof (object.specialty) === 'string' ?
+    {
+        specialty:object.specialty
+    } :
+    false;
+}
 export const specialistByspecialtyReqValidator = (object:specialistByspecialty):specialistByspecialty | false => {
     return 'idSpecialty' in object
     && typeof (object.idSpecialty) === 'string' ?

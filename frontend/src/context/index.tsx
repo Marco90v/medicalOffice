@@ -3,6 +3,7 @@ import { getToken, removeToken, setToken } from "../utils";
 
 const initialState = {
     token: getToken(),
+    specialty:[]
 };
 
 const Context = createContext<any>(null);

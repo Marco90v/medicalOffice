@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { especialidadesShema, especialistaSchema, login, pasientesSchema, userSchema } from "../model/schema";
 import main from "./conect";
 
@@ -42,6 +43,24 @@ export const getSpecialtyDB = () => {
             reject({error:"getSpecialty query failed"});
         }
     });
+}
+
+export const setSpecialtyDB = (data:setSpecialty) => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            const db = await main();
+            const collection = db.model('especialidades', especialidadesShema);
+            const newData = {
+                _id: new ObjectId(),
+                name: data.specialty
+            }
+            const add = new collection(newData);
+            const res = await add.save();
+            resolve(res);
+        }catch(error){
+            reject({error:"setSpecialtyDB query failed"});
+        }
+    } );
 }
 
 export const specialistByspecialtyDB = ({idSpecialty}:specialistByspecialty) => {

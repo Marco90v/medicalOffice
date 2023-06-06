@@ -65,7 +65,7 @@ function Login(){
                             className="cursor-pointer absolute top-1 right-1"
                         />
                     </div>
-                    { errors.user &&  <FiledRequired text={"This field is required"} /> }
+                    { errors.password &&  <FiledRequired text={"This field is required"} /> }
                     <button type="submit" className="bg-green-500 py-2 px-10 rounded-md m-auto">Sign in</button>
                     { error &&  <FiledRequired text={error?.error} /> }
                 </form>

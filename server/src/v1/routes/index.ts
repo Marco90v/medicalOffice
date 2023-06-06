@@ -10,6 +10,7 @@ const router = express.Router();
 router.post('/login', workOutControllers.login);
 
 router.get('/specialty', validateToken, workOutControllers.specialty);
+router.post('/specialty', validateToken, workOutControllers.setSpecialty);
 router.post('/specialistByspecialty', validateToken, workOutControllers.specialistByspecialty);
 
 export default router;

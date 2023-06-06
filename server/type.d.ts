@@ -21,6 +21,10 @@ interface specialty {
     name: string
 }
 
+interface setSpecialty {
+    specialty: string
+}
+
 interface specialistByspecialty {
     idSpecialty: string
 }
