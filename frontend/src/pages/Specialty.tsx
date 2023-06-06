@@ -14,9 +14,9 @@ function Specialty() {
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
     const [specialtys, setSpecialty] = useState<specialty[] | undefined>();
 
-    const [ specialtysFetch ] = useFetch("specialty");
-    const [ specialty, setspecialty ] = useFetch();
-    
+    const [ specialtysFetch, _, errorFetchGet ] = useFetch("specialty");
+    const [ specialty, setspecialty, errorSetSpecialty ] = useFetch();
+
     useEffect(() => {
         specialtysFetch && setSpecialty(specialtysFetch);
     }, [specialtysFetch]);
@@ -55,6 +55,7 @@ function Specialty() {
                 />
                 <button className="bg-green-500 text-white p-1 rounded-md" type="submit">Add</button>
                 { errors.specialty &&  <FiledRequired text={"This field is required"} style={"col-span-4"} /> }
+                { errorSetSpecialty &&  <FiledRequired text={errorSetSpecialty.error} style={"col-span-4"} /> }
             </form>
 
             <table className="m-auto table-auto w-[30rem] border border-solid border-slate-500 rounded-md overflow-hidden">
@@ -67,12 +68,19 @@ function Specialty() {
                 </thead>
                 <tbody >
                     {
+                        errorFetchGet?.error ? 
+                            (<tr className="bg-red-600 text-white font-black">
+                                <td colSpan={3} className="text-center p-2">
+                                    {errorFetchGet.error}
+                                </td>
+                            </tr>) 
+                        :
                         !specialtys ? 
-                            <tr>
+                            (<tr>
                                 <td colSpan={3}>
                                     <img className="m-auto animate-spin" src={loaderIcon} alt="loader" />
                                 </td>
-                            </tr> 
+                            </tr> )
                         :
                         specialtys?.map( (item:specialty) => {
                             return(

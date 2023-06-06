@@ -19,19 +19,19 @@ export const validateToken = (req:Request,res:Response,next:NextFunction) => {
             const ruta = q.includes("/") ? q.split('/')[0] : q;
             const method:string = req.method;
             const token = headers.split(' ')[1];
-            if(!token) return res.status(400).json({ error: "No autorizado" });
+            if(!token) return res.status(400).json({ error: "No Authorization" });
             const decrypToken = jwt.verify(token, SECRET);
             // console.log(decrypToken);
             // const role:any = jwt.verify(token, SECRET,(_,token:token)=>token.role);
             // const permision = authorization.find(e=>e.ruta===ruta && e.method===method && e.role.find(y=>y===role));
             // if(!permision) return res.status(403).json({ message: "No autorizado" });
-            if(!decrypToken) res.status(403).json({ error: "No autorizado" });
+            if(!decrypToken) res.status(403).json({ error: "No Authorization" });
             next();
         }else{
-            return res.status(403).json({ message: "No autorizado" })
+            return res.status(403).json({ error: "No Authorization" });
         }
     }catch(e){
-        console.log(e);
-        return res.status(410).json({ message: "No autorizado" });
+        // console.log(e);
+        return res.status(410).json({ error: "No Authorization" });
     }
 }

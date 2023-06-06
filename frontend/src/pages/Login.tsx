@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Context } from "../context";
 import { FiledRequired } from "../components";
 import consultorio from "../assets/consultorio-medico.webp";
 import see from "../assets/show-alt-regular-24.png";
 import noSee from "../assets/low-vision-regular-24.png";
+import { useFetch } from "../hooks/inedx";
 
 interface IFormInput {
     user: string,
@@ -23,21 +24,26 @@ function Login(){
     const handlerShow = () => setShow(!show);
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-        const resLogin = await fetch("http://localhost:3000/api/v1/login", {
-            method: "POST",
-            body:JSON.stringify(data),
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            mode: 'cors',
-        });
-        if(resLogin.ok){
-            setError(undefined);
-            const token:string = await resLogin.text();
-            dispatch({ type:"addToken", token });
-        }else{
-            const e = await resLogin.json();
-            setError(e);
+        try{
+            const resLogin = await fetch("http://localhost:3000/api/v1/login", {
+                method: "POST",
+                body:JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors',
+            });
+            if(resLogin.ok){
+                setError(undefined);
+                const token:string = await resLogin.text();
+                dispatch({ type:"addToken", token });
+            }else{
+                const e = await resLogin.json();
+                setError(e);
+            }
+        }catch(error){
+            console.log(error);
+            setError({error:"Failed to fetch"});
         }
     };
 
