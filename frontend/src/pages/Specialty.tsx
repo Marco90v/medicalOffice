@@ -9,9 +9,12 @@ import { FiledRequired } from "../components";
 interface IFormInput {
     specialty: string,
 }
+const initialForm:IFormInput = {
+    specialty:"",
+};
 
 function Specialty() {
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<IFormInput>({defaultValues:initialForm});
     const [specialtys, setSpecialty] = useState<specialty[] | undefined>();
 
     const [ specialtysFetch, , errorFetchGet ] = useFetch("specialty");
@@ -22,7 +25,7 @@ function Specialty() {
     }, [specialtysFetch]);
 
     useEffect(() => {
-        specialty && 
+        if(specialty){
             setSpecialty( (items) => {
                 if(items){
                     return [...items, specialty];
@@ -30,7 +33,9 @@ function Specialty() {
                     return undefined;
                 }
             });
-    }, [specialty]);
+            reset();
+        }
+    }, [specialty, reset]);
     
 
     const onSubmit:SubmitHandler<IFormInput> = async (data) => {
