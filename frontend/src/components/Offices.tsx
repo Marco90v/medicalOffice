@@ -1,5 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
-import { IFormInput, specialty } from "../type";
+import { IFormInput, specialist, specialty } from "../type";
 import { useFetch } from "../hooks/inedx";
 
 interface props {
@@ -8,9 +8,12 @@ interface props {
 
 function Offices({register}:props) {
     const [ specialty ] = useFetch("specialty");
+    const [ specialists, setPath ] = useFetch();
+    // console.log(specialists);
 
-    const p = () => {
-        console.log("pp");
+    const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
+        const idSpecialty:string = item.target.value;
+        setPath("specialistByspecialty", "POST", {idSpecialty});
     };
     return(
         <div className="grid grid-cols-4 items-center gap-4">
@@ -19,7 +22,7 @@ function Offices({register}:props) {
                 className="p-2 rounded bg-white"
                 id="specialty"
                 {...register("specialty", {required:true})}
-                onChange={p}
+                onChange={changeSpecialty}
             >
                  <option key="0" value="0"></option>
                 {
@@ -32,8 +35,10 @@ function Offices({register}:props) {
                 id="specialist"
                 {...register("specialist", {required:true})}
             >
-                <option value="0">0</option>
-                <option value="1">1</option>
+                <option key="0" value="0"></option>
+                {
+                    (specialists as specialist[] | undefined )?.map( (item:specialist) => <option key={item._id} value={item._id}>{`${item.name} ${item.lastName}`}</option> )
+                }
             </select>
         </div>
     );

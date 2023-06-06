@@ -1,4 +1,4 @@
-import { especialidadesShema, login, pasientesSchema, userSchema } from "../model/schema";
+import { especialidadesShema, especialistaSchema, login, pasientesSchema, userSchema } from "../model/schema";
 import main from "./conect";
 
 export const loginDB = ({user, password}:login) => {
@@ -42,4 +42,23 @@ export const getSpecialtyDB = () => {
             reject({error:"getSpecialty query failed"});
         }
     });
+}
+
+export const specialistByspecialtyDB = ({idSpecialty}:specialistByspecialty) => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            const db = await main();
+            const collection = db.model('especialistas', especialistaSchema);
+            const especialistas:specialistByspecialty[] | undefined = await collection.find({specialty:idSpecialty});
+            if(especialistas){
+                db.disconnect();
+                resolve(especialistas);
+            }else{
+                db.disconnect();
+                reject({error:"No specialists found"});
+            }
+        }catch(error){
+            reject({error:"specialistByspecialtyDB query failed"});
+        }
+    } );
 }

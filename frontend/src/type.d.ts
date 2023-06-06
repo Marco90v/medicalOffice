@@ -23,3 +23,9 @@ export interface specialty {
 export interface error {
     error: string
 }
+export interface specialist{
+    _id: string,
+    name: string,
+    lastName: string,
+    specialty: string
+}

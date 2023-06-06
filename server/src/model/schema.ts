@@ -29,3 +29,10 @@ export const especialidadesShema = new Schema({
     _id: ObjectId,
     name: String,
 });
+
+export const especialistaSchema = new Schema({
+    _id: ObjectId,
+    name: String,
+    lastName: String,
+    specialty: String,
+});

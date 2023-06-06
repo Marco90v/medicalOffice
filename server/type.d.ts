@@ -20,3 +20,7 @@ interface specialty {
     _id: string,
     name: string
 }
+
+interface specialistByspecialty {
+    idSpecialty: string
+}
