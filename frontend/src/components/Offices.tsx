@@ -16,7 +16,7 @@ function Offices({register}:props) {
         <div className="grid grid-cols-4 items-center gap-4">
             <label htmlFor="">Specialty</label>
             <select
-                className="p-2 rounded"
+                className="p-2 rounded bg-white"
                 id="specialty"
                 {...register("specialty", {required:true})}
                 onChange={p}
@@ -28,7 +28,7 @@ function Offices({register}:props) {
             </select>
             <label htmlFor="">Specialist</label>
             <select
-                className="p-2 rounded"
+                className="p-2 rounded bg-white"
                 id="specialist"
                 {...register("specialist", {required:true})}
             >

@@ -1,12 +1,17 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Offices, Profile } from "../components";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { Historical, Offices, Profile } from "../components";
 import { IFormInput } from "../type";
 import { initicalStateFormNew } from "../utils";
 // import { useFetch } from "../hooks/inedx";
 // import { useEffect } from "react";
 
 function New() {
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({defaultValues:{...initicalStateFormNew}});
+    const { register, handleSubmit, control, formState: { errors } } = useForm<IFormInput>({defaultValues:{...initicalStateFormNew}});
+
+    // const { fields, append, remove } = useFieldArray({
+    //     control,
+    //     name: "background"
+    // });
 
     // const [specialty] = useFetch("specialty");
     
@@ -20,14 +25,15 @@ function New() {
 
     return(
         <div
-            className="h-screen flex items-center justify-center w-10/12 m-auto"
+            className="flex items-start justify-center w-10/12 m-auto"
         >
             <form
-                className="bg-gray-300 p-6 rounded-md"
+                className="bg-gray-300 p-6 rounded-md flex flex-col gap-6 w-full"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <Profile register={register} />
                 <Offices register={register} />
+                <Historical register={register} control={control} />
                 <button
                     type="submit"
                     className="py-2 px-6 bg-green-500 rounded-md text-white font-black"

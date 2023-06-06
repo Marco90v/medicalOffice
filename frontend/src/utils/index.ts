@@ -20,6 +20,13 @@ export const initicalStateFormNew:IFormInput = {
     phone: 0,
     specialty:"",
     specialist: "",
+    alcohol: "",
+    canavis: "",
+    cocaine: "",
+    smoke: "",
+    background:[
+        // {details:"details", relationship:"relationship"}
+    ]
 };
 
 // export const useFetch = async (path:string, method:string="GET", body?:any) => {

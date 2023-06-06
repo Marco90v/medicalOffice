@@ -19,9 +19,14 @@ function Profile({register}:{register:UseFormRegister<IFormInput>}) {
                 className="p-2 rounded"
                 { ...register("fullSurname", {required:true}) }
             />
+            <label htmlFor="fullSurname">Date of birth</label>
+            <input type="date" id="fullSurname"
+                className="p-2 rounded"
+                { ...register("fullSurname", {required:true}) }
+            />
             <label htmlFor="gender">Gender</label>
             <select
-                className="p-2 rounded"
+                className="p-2 rounded bg-white"
                 {...register("gender", {required:true})}
             >
                 <option value=""></option>

@@ -7,6 +7,14 @@ export interface IFormInput {
     phone: number,
     specialty:string,
     specialist: string,
+    smoke: string,
+    alcohol: string,
+    canavis: string,
+    cocaine: string,
+    background:{
+        relationship: string,
+        details: string
+    }[]
 }
 export interface specialty {
     _id: string,
