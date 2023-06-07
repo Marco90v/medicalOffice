@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../components";
+import { Modal, Sidebar } from "../components";
 
 function Dashboard() {
     return(
@@ -7,6 +7,7 @@ function Dashboard() {
             <Sidebar />
             <section className="col-span-10 p-4 overflow-auto">
                 <Outlet />
+                <Modal />
             </section>
         </main>
     );

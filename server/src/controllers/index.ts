@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, specialistByspecialtyReqValidator, specialtyReqValidator } from "./validator";
+import { loginReqValidator, specialistByspecialtyReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -32,6 +32,39 @@ export const setSpecialty = (req:Request,res:Response) => {
         .then( (resolve) => {
             res.status(200).json(resolve);
         } )
+        .catch( (error) => {
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const updateSpecialty = (req:Request,res:Response) => {
+    const data = updateSpecialtyReqValidator(req.body);
+    if(data){
+        services.updateSpecialtyDB(data)
+        .then( (resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch( (error)=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const deleteSpecialty = (req:Request,res:Response) => {
+    const data = specialtyIdReqValidator(req.body);
+    if(data){
+        services.deleteSpecialtyDB(data)
+        .then( (resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch( (error)=>{
+            res.status(400).json(error);
+        });
     }else{
         res.status(400).json({error:"Error in the data structure"});
     }

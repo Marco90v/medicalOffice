@@ -3,7 +3,10 @@ import { getToken, removeToken, setToken } from "../utils";
 
 const initialState = {
     token: getToken(),
-    specialty:[]
+    modal:{
+        msg:"",
+        func:null
+    }
 };
 
 const Context = createContext<any>(null);
@@ -20,6 +23,11 @@ const reducer = (state:any, action:any) => {
             removeToken();
             return {
                 initialState
+            };
+        case "showModal":
+            return{
+                ...state,
+                modal: {...action.modal}
             };
         default:
             return state;

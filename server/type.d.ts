@@ -24,6 +24,9 @@ interface specialty {
 interface setSpecialty {
     specialty: string
 }
+interface specialtyId{
+    _id:string
+}
 
 interface specialistByspecialty {
     idSpecialty: string
