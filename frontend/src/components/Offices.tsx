@@ -1,19 +1,18 @@
 import { UseFormRegister } from "react-hook-form";
 import { IFormInput, specialist, specialty } from "../type";
 import { useFetch } from "../hooks";
-
 interface props {
     register:UseFormRegister<IFormInput>,
 }
 
 function Offices({register}:props) {
-    const [ specialty ] = useFetch("specialty");
-    const [ specialists, setPath ] = useFetch();
-    // console.log(specialists);
+
+    const {state:specialty} = useFetch("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialists, getFetch} = useFetch("http://localhost:3000/api/v1/");
 
     const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
-        const idSpecialty:string = item.target.value;
-        setPath("specialistByspecialty", "POST", {idSpecialty});
+        const idSpecialty:{idSpecialty:string} = {idSpecialty: item.target.value};
+        getFetch("specialistByspecialty", "POST", idSpecialty);
     };
     return(
         <div className="grid grid-cols-4 items-center gap-4">

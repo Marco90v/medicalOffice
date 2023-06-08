@@ -18,61 +18,30 @@ const initialForm:specialty = {
 };
 
 function Specialty() {
-    const { state:{modalFunction}, dispatch } = useContext(Context);
+    const { dispatch } = useContext(Context);
 
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<specialty>({defaultValues:initialForm});
-    const [specialtys, setSpecialty] = useState<specialty[] | undefined>();
     const [edit, setEdit] = useState(false);
 
-    const [ specialtysFetch, , errorFetchGet ] = useFetch("specialty");
-    const [ specialty, setspecialty, errorSetSpecialty ] = useFetch();
-    const [ updateSpecialty, setUpdatespecialty, errorUpdateSetSpecialty ] = useFetch();
-    const [ removeSpecialty, setRemoveSpecialty, errorRemoveSpecialty ] = useFetch();
+    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch("http://localhost:3000/api/v1/", "specialty");
+    const {getError, setError, updateError, removeError} = error;
 
     useEffect(() => {
-        specialtysFetch && setSpecialty(specialtysFetch);
-    }, [specialtysFetch]);
+        const error = removeError ? removeError.error : removeError;
+        dispatch({ type:"modalError", error });
+    }, [removeError, dispatch]);
 
-    useEffect(() => {
-        if(specialty){
-            setSpecialty( (items) => {
-                if(items){
-                    return [...items, specialty];
-                }else{
-                    return undefined;
-                }
-            });
-            reset();
-        }
-    }, [specialty, reset]);
-
-    useEffect(() => {
-        if(updateSpecialty){
-            setSpecialty( (items) => {
-                return items?.map(item => item._id===updateSpecialty._id ? updateSpecialty : item);
-            });
-            reset();
-        }
-    }, [updateSpecialty, reset]);
-
-    useEffect(() => {
-        if(removeSpecialty){
-            setSpecialty( (items) => {
-                return items?.filter(item => item._id!==removeSpecialty._id);
-            });
-            reset();
-            const modal = { msg:"", func:null };
-            dispatch({ type:"showModal", modal });
-        }
-    }, [removeSpecialty, reset, dispatch]);    
-    
+    const callBackUpdateFetch = () => {
+        setEdit(false);
+        reset();
+    };
 
     const onSubmit:SubmitHandler<specialty> = async (data) => {
         if(edit){
-            setUpdatespecialty("specialty", "PUT", data);
+            updateFetch("specialty", data, callBackUpdateFetch);
         }else{
             const specialty:IFormInput = {specialty:data.name};
-            setspecialty("specialty", "POST", specialty);
+            setFetch("specialty", specialty, reset);
         }
     };
 
@@ -87,15 +56,22 @@ function Specialty() {
         setEdit(false);
     };
 
-    const callBack = (_id:string) => {
-        // console.log(_id);
-        setRemoveSpecialty("specialty", "DELETE", {_id});
+    const callBackRemoveOk = () => {
+        reset();
+        const modal = { msg:"", func:null };
+        dispatch({ type:"showModal", modal });
     };
+
+    const callBackRemove = (_id:string) => {
+        deleteFetch("specialty", {_id}, callBackRemoveOk);
+    };
+    
     const remove = (item:specialty) => {
         const msg = <>Do you want to remove <span className="underline text-red-600 italic">{item.name}</span>?</>;
         const modal = {
             msg,
-            func: ()=>callBack(item._id)
+            func: ()=>callBackRemove(item._id),
+            error: ""
         };
         dispatch({ type:"showModal", modal });
     };
@@ -116,8 +92,7 @@ function Specialty() {
                 {edit && <button className="bg-red-500 text-white p-1 rounded-md" type="button" onClick={cancel}>Cancel</button>}
                 <button className="bg-green-500 text-white p-1 rounded-md" type="submit">{edit ? "Save": "Add"}</button>
                 { errors.name &&  <FiledRequired text={"This field is required"} style={"col-span-4"} /> }
-                { errorSetSpecialty &&  <FiledRequired text={errorSetSpecialty.error} style={"col-span-4"} /> }
-                { errorUpdateSetSpecialty &&  <FiledRequired text={errorUpdateSetSpecialty.error} style={"col-span-4"} /> }
+                { (setError || updateError) &&  <FiledRequired text={setError?.error || updateError?.error} style={"col-span-4"} /> }
             </form>
 
             <table className="m-auto table-auto w-[30rem] border border-solid border-slate-500 rounded-md overflow-hidden">
@@ -130,10 +105,10 @@ function Specialty() {
                 </thead>
                 <tbody >
                     {
-                        errorFetchGet?.error ? 
+                        getError?.error ? 
                             (<tr className="bg-red-600 text-white font-black">
                                 <td colSpan={3} className="text-center p-2">
-                                    {errorFetchGet.error}
+                                    {getError.error}
                                 </td>
                             </tr>) 
                         :

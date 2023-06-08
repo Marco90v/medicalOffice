@@ -8,7 +8,7 @@ function Modal() {
         modal.func();
     };
     const cancel = () => {
-        dispatch({ type:"showModal", func:null });
+        dispatch({ type:"cancelModal" });
     };
 
     return (
@@ -17,9 +17,10 @@ function Modal() {
             className="absolute inset-0 bg-black/90 flex justify-center items-center"
         >
             <div
-                className="bg-white w-[30rem] h-60 rounded-md grid items-center grid-cols-2 grid-rows-2 "
+                className="bg-white w-[30rem] h-40 rounded-md grid items-center grid-cols-2 grid-rows-3 "
             >
                 <p className="col-span-2 m-auto font-black">{modal.msg}</p>
+                <p className="col-span-2 m-auto text-red-600">{modal.error}</p>
                 <button
                     className="m-auto py-2 px-4 rounded-md text-white font-black bg-red-600"
                     type="button"

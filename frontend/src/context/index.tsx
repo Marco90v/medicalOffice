@@ -5,8 +5,9 @@ const initialState = {
     token: getToken(),
     modal:{
         msg:"",
-        func:null
-    }
+        func:null,
+        error: undefined
+    },
 };
 
 const Context = createContext<any>(null);
@@ -28,6 +29,21 @@ const reducer = (state:any, action:any) => {
             return{
                 ...state,
                 modal: {...action.modal}
+            };
+        case "cancelModal":
+            return {
+                ...state,
+                modal:{
+                    ...initialState.modal
+                }
+            };
+        case "modalError":
+            return {
+                ...state,
+                modal: {
+                    ...state.modal,
+                    error: action.error
+                }
             };
         default:
             return state;
