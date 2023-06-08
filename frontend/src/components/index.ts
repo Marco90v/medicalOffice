@@ -6,3 +6,4 @@ export * from "./Historical";
 export * from "./Modal";
 export * from "./TableRowError";
 export * from "./TableRowLoader";
+export * from "./TableSpecialtys";

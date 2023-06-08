@@ -1,12 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FiledRequired, TableRowError, TableRowLoader } from "../components";
+import { FiledRequired, TableRowError, TableRowLoader, TableSpecialtys } from "../components";
 import { Context } from "../context";
 import { useFetch } from "../hooks";
 import { specialty } from "../type";
-
-import editIcon from "../assets/edit-alt-solid-24.png";
-import removeIcon from "../assets/trash-alt-solid-24.png";
 
 const initialForm:specialty = {
     _id:"",
@@ -21,7 +18,6 @@ function Specialty() {
 
     const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
     const {getError, setError, updateError, removeError} = error;
-    // console.log(specialtys);
 
     useEffect(() => {
         const error = removeError ? removeError.error : removeError;
@@ -54,9 +50,9 @@ function Specialty() {
     };
 
     const callBackRemoveOk = () => {
-        reset();
         const modal = { msg:"", func:null };
         dispatch({ type:"showModal", modal });
+        reset();
     };
 
     const callBackRemove = (_id?:string) => {
@@ -102,33 +98,9 @@ function Specialty() {
                 </thead>
                 <tbody >
                     {
-                        getError?.error ? <TableRowError error={getError.error} />
-                        :
-                        !specialtys ? <TableRowLoader />
-                        :
-                        specialtys.map( (item) => {
-                            return(
-                                <tr key={item._id} className="border-x-2 odd:bg-white even:bg-slate-100 last:border-b-2 hover:bg-slate-200">
-                                    <td className="py-2 px-1" >{item.name}</td>
-                                    <td className="py-2 px-1" >
-                                        <img
-                                            className="m-auto bg-yellow-400 p-1 rounded cursor-pointer"
-                                            src={editIcon}
-                                            alt="edit"
-                                            onClick={()=>setForm(item)}
-                                        />
-                                    </td>
-                                    <td className="py-2 px-1" >
-                                        <img
-                                            className="m-auto bg-red-500 p-1 rounded cursor-pointer"
-                                            src={removeIcon}
-                                            alt="remove"
-                                            onClick={()=>remove(item)}
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        } )
+                        getError?.error ? <TableRowError span={3} error={getError.error} /> :
+                            !specialtys ? <TableRowLoader span={3} /> :
+                                specialtys.map( item => <TableSpecialtys key={item._id} item={item} setForm={setForm} remove={remove} /> )
                     }
                 </tbody>
             </table>
