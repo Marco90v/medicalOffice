@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FiledRequired } from "../components";
+import { FiledRequired, TableRowError, TableRowLoader } from "../components";
 import { Context } from "../context";
 import { useFetch } from "../hooks";
 import { specialty } from "../type";
 
-import loaderIcon from "../assets/loader-alt-regular-24.png";
 import editIcon from "../assets/edit-alt-solid-24.png";
 import removeIcon from "../assets/trash-alt-solid-24.png";
 
@@ -22,6 +21,7 @@ function Specialty() {
 
     const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
     const {getError, setError, updateError, removeError} = error;
+    // console.log(specialtys);
 
     useEffect(() => {
         const error = removeError ? removeError.error : removeError;
@@ -102,21 +102,11 @@ function Specialty() {
                 </thead>
                 <tbody >
                     {
-                        getError?.error ? 
-                            (<tr className="bg-red-600 text-white font-black">
-                                <td colSpan={3} className="text-center p-2">
-                                    {getError.error}
-                                </td>
-                            </tr>) 
+                        getError?.error ? <TableRowError error={getError.error} />
                         :
-                        !specialtys ? 
-                            (<tr>
-                                <td colSpan={3}>
-                                    <img className="m-auto animate-spin" src={loaderIcon} alt="loader" />
-                                </td>
-                            </tr> )
+                        !specialtys ? <TableRowLoader />
                         :
-                        (specialtys as specialty[]).map( (item:specialty) => {
+                        specialtys.map( (item) => {
                             return(
                                 <tr key={item._id} className="border-x-2 odd:bg-white even:bg-slate-100 last:border-b-2 hover:bg-slate-200">
                                     <td className="py-2 px-1" >{item.name}</td>

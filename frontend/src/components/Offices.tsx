@@ -24,7 +24,7 @@ function Offices({register}:props) {
             >
                  <option key="0" value="0"></option>
                 {
-                    specialty.map( (item:specialty) => <option key={item._id} value={item._id}>{item.name}</option> )
+                    specialty?.map( (item) => <option key={item._id} value={item._id}>{item.name}</option> )
                 }
             </select>
             <label htmlFor="">Specialist</label>
@@ -35,7 +35,7 @@ function Offices({register}:props) {
             >
                 <option key="0" value="0"></option>
                 {
-                    specialists.map( (item:specialist) => <option key={item._id} value={item._id}>{`${item.name} ${item.lastName}`}</option> )
+                    specialists?.map( (item) => <option key={item._id} value={item._id}>{`${item.name} ${item.lastName}`}</option> )
                 }
             </select>
         </div>
