@@ -1,18 +1,17 @@
 import { UseFormRegister } from "react-hook-form";
-import { IFormInput, specialist, specialty } from "../type";
 import { useFetch } from "../hooks";
+import { IFormInput, specialist, specialty } from "../type";
 interface props {
     register:UseFormRegister<IFormInput>,
 }
 
 function Offices({register}:props) {
-
-    const {state:specialty} = useFetch("http://localhost:3000/api/v1/", "specialty");
-    const {state:specialists, getFetch} = useFetch("http://localhost:3000/api/v1/");
+    const {state:specialty} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialists, getFetch} = useFetch<specialist>("http://localhost:3000/api/v1/");
 
     const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
-        const idSpecialty:{idSpecialty:string} = {idSpecialty: item.target.value};
-        getFetch("specialistByspecialty", "POST", idSpecialty);
+        const idSpecialty:string = item.target.value;
+        getFetch(`specialist/${idSpecialty}`);
     };
     return(
         <div className="grid grid-cols-4 items-center gap-4">
@@ -25,7 +24,7 @@ function Offices({register}:props) {
             >
                  <option key="0" value="0"></option>
                 {
-                    (specialty as specialty[] | undefined )?.map( (item:specialty) => <option key={item._id} value={item._id}>{item.name}</option> )
+                    specialty.map( (item:specialty) => <option key={item._id} value={item._id}>{item.name}</option> )
                 }
             </select>
             <label htmlFor="">Specialist</label>
@@ -36,7 +35,7 @@ function Offices({register}:props) {
             >
                 <option key="0" value="0"></option>
                 {
-                    (specialists as specialist[] | undefined )?.map( (item:specialist) => <option key={item._id} value={item._id}>{`${item.name} ${item.lastName}`}</option> )
+                    specialists.map( (item:specialist) => <option key={item._id} value={item._id}>{`${item.name} ${item.lastName}`}</option> )
                 }
             </select>
         </div>

@@ -40,14 +40,14 @@ export const getSpecialtyDB = () => {
     });
 }
 
-export const setSpecialtyDB = (data:setSpecialty) => {
+export const setSpecialtyDB = ({name}:setSpecialty) => {
     return new Promise( async (resolve, reject) => {
         const db = await main();
         try{
             const collection = db.model('especialidades', especialidadesShema);
             const newData = {
                 _id: new ObjectId(),
-                name: data.specialty
+                name,
             }
             const add = new collection(newData);
             const res = await add.save();

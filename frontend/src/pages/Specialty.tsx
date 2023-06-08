@@ -1,17 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { FiledRequired } from "../components";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FiledRequired } from "../components";
+import { Context } from "../context";
 import { useFetch } from "../hooks";
 import { specialty } from "../type";
 
 import loaderIcon from "../assets/loader-alt-regular-24.png";
 import editIcon from "../assets/edit-alt-solid-24.png";
 import removeIcon from "../assets/trash-alt-solid-24.png";
-import { Context } from "../context";
 
-interface IFormInput {
-    specialty: string,
-}
 const initialForm:specialty = {
     _id:"",
     name:"",
@@ -23,7 +20,7 @@ function Specialty() {
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<specialty>({defaultValues:initialForm});
     const [edit, setEdit] = useState(false);
 
-    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
     const {getError, setError, updateError, removeError} = error;
 
     useEffect(() => {
@@ -40,7 +37,7 @@ function Specialty() {
         if(edit){
             updateFetch("specialty", data, callBackUpdateFetch);
         }else{
-            const specialty:IFormInput = {specialty:data.name};
+            const specialty:specialty = {name:data.name};
             setFetch("specialty", specialty, reset);
         }
     };
@@ -62,7 +59,7 @@ function Specialty() {
         dispatch({ type:"showModal", modal });
     };
 
-    const callBackRemove = (_id:string) => {
+    const callBackRemove = (_id?:string) => {
         deleteFetch("specialty", {_id}, callBackRemoveOk);
     };
     
@@ -92,7 +89,7 @@ function Specialty() {
                 {edit && <button className="bg-red-500 text-white p-1 rounded-md" type="button" onClick={cancel}>Cancel</button>}
                 <button className="bg-green-500 text-white p-1 rounded-md" type="submit">{edit ? "Save": "Add"}</button>
                 { errors.name &&  <FiledRequired text={"This field is required"} style={"col-span-4"} /> }
-                { (setError || updateError) &&  <FiledRequired text={setError?.error || updateError?.error} style={"col-span-4"} /> }
+                { (setError || updateError) &&  <FiledRequired text={setError?.error || updateError?.error || ""} style={"col-span-4"} /> }
             </form>
 
             <table className="m-auto table-auto w-[30rem] border border-solid border-slate-500 rounded-md overflow-hidden">
@@ -119,7 +116,7 @@ function Specialty() {
                                 </td>
                             </tr> )
                         :
-                        specialtys?.map( (item:specialty) => {
+                        (specialtys as specialty[]).map( (item:specialty) => {
                             return(
                                 <tr key={item._id} className="border-x-2 odd:bg-white even:bg-slate-100 last:border-b-2 hover:bg-slate-200">
                                     <td className="py-2 px-1" >{item.name}</td>

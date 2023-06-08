@@ -9,10 +9,10 @@ export const loginReqValidator = (object:login):login | false =>{
     false;
 }
 export const specialtyReqValidator = (object:setSpecialty):setSpecialty | false => {
-    return 'specialty' in object
-    && typeof (object.specialty) === 'string' ?
+    return 'name' in object
+    && typeof (object.name) === 'string' ?
     {
-        specialty:object.specialty
+        name:object.name
     } :
     false;
 }

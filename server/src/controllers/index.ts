@@ -70,8 +70,8 @@ export const deleteSpecialty = (req:Request,res:Response) => {
     }
 }
 
-export const specialistByspecialty = (req:Request,res:Response) => {
-    const data = specialistByspecialtyReqValidator(req.body);
+export const specialistByspecialty = (req:Request<{idSpecialty:string}>,res:Response) => {
+    const data = specialistByspecialtyReqValidator(req.params);
     if(data){
         services.specialistByspecialtyDB(data)
         .then((resolve)=>{

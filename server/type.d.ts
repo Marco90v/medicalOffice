@@ -22,7 +22,7 @@ interface specialty {
 }
 
 interface setSpecialty {
-    specialty: string
+    name: string
 }
 interface specialtyId{
     _id:string

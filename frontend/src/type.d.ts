@@ -17,8 +17,8 @@ export interface IFormInput {
     }[]
 }
 export interface specialty {
-    _id: string,
-    name: string,
+    _id?: string,
+    name?: string,
 }
 export interface error {
     error: string
