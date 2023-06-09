@@ -36,12 +36,12 @@ function New() {
                 <Historical register={register} control={control} />
                 <button
                     type="submit"
-                    className="py-2 px-6 bg-green-500 rounded-md text-white font-black"
+                    className="btn-new bg-green-500 hover:bg-green-400"
                 >
                     Send to queue
                 </button>
                 <button
-                    className="py-2 px-6 bg-blue-500 rounded-md text-white font-black"
+                    className="btn-new bg-blue-500 hover:bg-blue-400"
                     type="button"
                     onClick={p}
                 >

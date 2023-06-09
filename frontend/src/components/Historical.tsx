@@ -90,7 +90,7 @@ function Historical({register, control}:props) {
                                 {...register(`background.${index}.details` as const, {required:true})}
                             ></textarea>
                             <button
-                                className="p-2 rounded-md bg-red-600"
+                                className="btn-new p-2 bg-red-600 hover:bg-red-500"
                                 onClick={()=>removeBackground(index)}
                             >
                                 Remove background
@@ -100,7 +100,7 @@ function Historical({register, control}:props) {
                 } )
             }
             <button
-                className="col-start-4 p-2 rounded-md bg-green-600"
+                className="btn-new col-start-4 bg-green-500 hover:bg-green-400"
                 onClick={appBackground}
             >
                 Add background

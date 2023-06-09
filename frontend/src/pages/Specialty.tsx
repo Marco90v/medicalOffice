@@ -75,21 +75,21 @@ function Specialty() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="m-auto w-[30rem] grid grid-cols-5 gap-4 items-center"
             >
-                <label htmlFor="name">Specialty</label>
+                <label htmlFor="name" className="font-black">Specialty</label>
                 <input
                     className={`${edit ? "col-span-2" : "col-span-3"} border border-slate-300 p-1 rounded-md`}
                     type="text"
                     id="name"
                     {...register("name", {required:true} )}
                 />
-                {edit && <button className="bg-red-500 text-white p-1 rounded-md" type="button" onClick={cancel}>Cancel</button>}
-                <button className="bg-green-500 text-white p-1 rounded-md" type="submit">{edit ? "Save": "Add"}</button>
+                {edit && <button className="btn bg-red-500 hover:bg-red-400" type="button" onClick={cancel}>Cancel</button>}
+                <button className="btn bg-green-500 hover:bg-green-400" type="submit">{edit ? "Save": "Add"}</button>
                 { errors.name &&  <FiledRequired text={"This field is required"} style={"col-span-4"} /> }
                 { (setError || updateError) &&  <FiledRequired text={setError?.error || updateError?.error || ""} style={"col-span-4"} /> }
             </form>
 
             <table className="m-auto table-auto w-[30rem] border border-solid border-slate-500 rounded-md overflow-hidden">
-                <thead className="bg-black text-white">
+                <thead className="bg-black text-white font-black">
                     <tr>
                         <td className="py-2 px-4" >Specialty</td>
                         <td className="py-2 px-4 text-center" >Edit</td>

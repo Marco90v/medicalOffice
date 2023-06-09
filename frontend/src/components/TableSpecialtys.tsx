@@ -14,7 +14,7 @@ function TableSpecialtys({item, setForm, remove}:props) {
             <td className="py-2 px-1" >{item.name}</td>
             <td className="py-2 px-1" >
                 <img
-                    className="m-auto bg-yellow-400 p-1 rounded cursor-pointer"
+                    className="btn-table bg-yellow-400 hover:bg-yellow-300"
                     src={editIcon}
                     alt="edit"
                     onClick={()=>setForm(item)}
@@ -22,7 +22,7 @@ function TableSpecialtys({item, setForm, remove}:props) {
             </td>
             <td className="py-2 px-1" >
                 <img
-                    className="m-auto bg-red-500 p-1 rounded cursor-pointer"
+                    className="btn-table bg-red-500 hover:bg-red-400"
                     src={removeIcon}
                     alt="remove"
                     onClick={()=>remove(item)}
