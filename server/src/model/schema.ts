@@ -35,4 +35,10 @@ export const especialistaSchema = new Schema({
     name: String,
     lastName: String,
     specialty: String,
+    specialtyName: String,
+    phone: String,
+    email: String,
+    sex: String,
+    dateOfBirth: String,
+    dni: String
 });

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired, TableRowError, TableRowLoader, TableSpecialtys } from "../components";
 import { Context } from "../context";
-import { useFetch } from "../hooks";
+import { useFetch } from "../hooks/useFetch";
 import { specialty } from "../type";
 
 const initialForm:specialty = {

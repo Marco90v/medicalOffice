@@ -1,14 +1,28 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+type callback = ()=>void;
+
 dotenv.config();
 
-async function main(){
+let conn:typeof mongoose;
+
+async function startConnection(callback:callback){
     const connectionString = process.env.DATABASE_URL || "";
 
-    const conn =  await mongoose.connect(connectionString);
+    mongoose.connect(connectionString)
+    .then((result)=>{
+        conn = result;
+        callback();
+    })
+    .catch(error=>{
+        console.log(error);
+    });
+}
+
+function getConnection(){
     return conn;
 }
 
 
-export default main;
+export { startConnection, getConnection };

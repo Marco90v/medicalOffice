@@ -1,13 +1,13 @@
 import { UseFormRegister } from "react-hook-form";
-import { useFetch } from "../hooks";
-import { IFormInput, specialist, specialty } from "../type";
+import { useFetch } from "../hooks/useFetch";
+import { IFormInput, specialistByspecialty, specialty } from "../type";
 interface props {
     register:UseFormRegister<IFormInput>,
 }
 
 function Offices({register}:props) {
     const {state:specialty} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
-    const {state:specialists, getFetch} = useFetch<specialist>("http://localhost:3000/api/v1/");
+    const {state:specialists, getFetch} = useFetch<specialistByspecialty>("http://localhost:3000/api/v1/");
 
     const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
         const idSpecialty:string = item.target.value;

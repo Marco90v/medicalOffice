@@ -43,3 +43,35 @@ export const specialistByspecialtyReqValidator = (object:specialistByspecialty):
     } :
     false;
 }
+
+export const specialistReqValidator = (object:specialist):any | false => {
+    return '_id' &&  'name' && 'lastName' && 'specialty' && 'phone' && 'email' && 'sex' && 'dateOfBirth' && 'dni' in object
+    && typeof (object._id) === 'string'
+    && typeof (object.name) === 'string'
+    && typeof (object.lastName) === 'string'
+    && typeof (object.specialty) === 'string'
+    && typeof (object.phone) === 'string'
+    && typeof (object.email) === 'string'
+    && typeof (object.sex) === 'string'
+    && typeof (object.dateOfBirth) === 'string'
+    && typeof (object.dni) === 'string' ?
+    {
+        _id: object._id,
+        name: object.name,
+        lastName: object.lastName,
+        specialty: object.specialty,
+        phone: object.phone,
+        email: object.email,
+        sex: object.sex,
+        dateOfBirth: object.dateOfBirth,
+        dni: object.dni
+    } : false
+}
+
+export const removeSpecialistReqValidator = (object:specialist):{_id:string} | false => {
+    return '_id' in object
+    && typeof (object._id) === 'string' ?
+    {
+        _id: object._id
+    } : false;
+}

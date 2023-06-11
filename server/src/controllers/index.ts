@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, specialistByspecialtyReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
+import { loginReqValidator, removeSpecialistReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -78,6 +78,61 @@ export const specialistByspecialty = (req:Request<{idSpecialty:string}>,res:Resp
             res.status(200).json(resolve);
         })
         .catch((error)=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const specialist = (req:Request,res:Response) => {
+    services.specialistDB()
+    .then((resolve)=>{
+        res.status(200).json(resolve);
+    })
+    .catch((error)=>{
+        res.status(400).json(error);
+    });
+}
+
+export const setSpecialist = (req:Request,res:Response) => {
+    const data = specialistReqValidator(req.body);
+    if(data){
+        services.setSpecialistDB(data)
+        .then((resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const updateSpecialist = (req:Request,res:Response) => {
+    const data = specialistReqValidator(req.body);
+    if(data){
+        services.updateSpecialistDB(data)
+        .then((resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const deleteSpecialist = (req:Request,res:Response) => {
+    const data = removeSpecialistReqValidator(req.body);
+    if(data){
+        services.removeSpecialistDB(data)
+        .then((resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
             res.status(400).json(error);
         });
     }else{

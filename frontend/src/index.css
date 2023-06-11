@@ -22,4 +22,7 @@
   .btn{
     @apply text-white p-1 rounded-md transition-all duration-300 hover:shadow-md;
   }
+  .btn-specialist{
+    @apply row-start-3 m-auto py-1 px-4 rounded-md text-white font-black transition-all duration-300 hover:shadow-md
+  }
 }

@@ -23,9 +23,20 @@ export interface specialty {
 export interface error {
     error: string
 }
-export interface specialist{
+export interface specialistByspecialty{
     _id: string,
     name: string,
-    lastName: string,
-    specialty: string
+    lastName: string
+}
+export interface specialist{
+    _id?: string,
+    name?: string,
+    lastName?: string,
+    specialty?: string,
+    specialtyName?: string,
+    phone?: string,
+    email?: string,
+    sex?: string,
+    dateOfBirth?: string,
+    dni?: string
 }

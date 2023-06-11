@@ -1,7 +1,7 @@
-import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useLocation } from "react-router-dom";
-import { Dashboard, Home, Login, New, Specialty } from "../pages";
 import { useContext } from "react";
+import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useLocation } from "react-router-dom";
 import { Context } from "../context";
+import { Dashboard, Home, Login, New, Specialist, Specialty } from "../pages";
 
 const VerifySession = () => {
   const { state:{token} } = useContext(Context);
@@ -30,7 +30,7 @@ export const router = createBrowserRouter(
           <Route path="new" element={<New />} />
           <Route path="report" element={<>Report</>} />
           <Route path="specialty" element={<Specialty />} />
-          <Route path="Specialist" element={<>Specialist</>} />
+          <Route path="Specialist" element={<Specialist />} />
         </Route>
       ,
     ])

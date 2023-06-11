@@ -2,9 +2,12 @@ import express, { Express, Request, Response } from 'express';
 import cors from "cors";
 import v1Router from './v1/routes';
 
-import main from './services/conect';
+// import main from './services/conect';
 import dotenv from 'dotenv';
-import { pasientesSchema } from './model/schema';
+// import { pasientesSchema } from './model/schema';
+
+import { getConnection, startConnection } from './services/conect';
+import { IncomingMessage, Server, ServerResponse } from 'http';
 
 dotenv.config();
 const port = process.env.PORT;
@@ -32,9 +35,23 @@ app.get('/', async (req: Request, res: Response) => {
 
 app.use("/api/v1",v1Router);
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+let server:Server<typeof IncomingMessage, typeof ServerResponse>;
+startConnection(()=>{
+  server = app.listen(port, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  });
 });
+
+function close() {
+  console.log( "\nGoing out.....");
+  const db = getConnection();
+  db.disconnect();
+  server.close(()=>{
+    process.exit();
+  });
+}
+
+process.on('SIGINT', close);
 
 
 
