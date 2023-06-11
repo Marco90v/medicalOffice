@@ -12,7 +12,7 @@ function Modal() {
     };
 
     return (
-        !modal.func ? null :
+        !modal?.func ? null :
         <div
             className="absolute inset-0 bg-black/90 flex justify-center items-center"
         >
