@@ -1,19 +1,22 @@
-export interface IFormInput {
-    fullName: string,
-    fullSurname: string,
-    identityNumber: string,
-    gender: string,
-    email: string,
-    phone: number,
-    specialty:string,
-    specialist: string,
-    smoke: string,
-    alcohol: string,
-    canavis: string,
-    cocaine: string,
-    background:{
-        relationship: string,
-        details: string
+export interface medicalHistory {
+    _id?: string,
+    fullName?: string,
+    fullSurname?: string,
+    dni?: string,
+    gender?: string,
+    email?: string,
+    phone?: string,
+    specialty?:string,
+    specialist?: string,
+    smoke?: string,
+    alcohol?: string,
+    canavis?: string,
+    cocaine?: string,
+    reason?: string,
+    result?: string,
+    background?:{
+        relationship?: string,
+        details?: string
     }[]
 }
 export interface specialty {
@@ -38,5 +41,5 @@ export interface specialist{
     email?: string,
     sex?: string,
     dateOfBirth?: string,
-    dni?: string
+    dni?: string,
 }

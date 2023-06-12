@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { especialidadesShema, especialistaSchema, login, pasientesSchema, userSchema } from "../model/schema";
+import { especialidadesShema, especialistaSchema, login, pacientesSchema, pasientesSchema, userSchema } from "../model/schema";
 import { getConnection } from "./conect";
 import mongoose from "mongoose";
 
@@ -207,6 +207,25 @@ export const removeSpecialistDB = ({_id}:{_id:string}) => {
             const collection = db.model('especialistas', especialistaSchema);
             const especialistas = await collection.findByIdAndDelete(_id);
             resolve(especialistas);
+        }catch(error){
+            reject({error:"removeSpecialistDB query failed"});
+        }
+    });
+}
+
+export const patient = (patient:patient) => {
+    return new Promise( async (resolve, reject) => {
+        const db = getConnection();
+        try{
+            // const { _id, ...rest } = patient;
+            const collection = db.model('pacientes', pacientesSchema);
+            const newData = {
+                _id: new ObjectId(),
+                ...patient,
+            }
+            const add = new collection(newData);
+            const res = await add.save();
+            resolve(res);
         }catch(error){
             reject({error:"removeSpecialistDB query failed"});
         }

@@ -30,13 +30,33 @@ interface specialistByspecialty {
     idSpecialty: string
 }
 interface specialist {
-    _id: String,
-    name: String,
-    lastName: String,
-    specialty: String,
-    phone: String,
-    email: String,
-    sex: String,
-    dateOfBirth: String,
-    dni: String,
+    _id: string,
+    name: string,
+    lastName: string,
+    specialty: string,
+    phone: string,
+    email: string,
+    sex: string,
+    dateOfBirth: string,
+    dni: string,
+}
+
+interface background {
+    relationship?: string,
+    details?: string
+}
+
+interface patient {
+    dni: string,
+    fullName: string,
+    fullSurname: string,
+    gender: string,
+    email: string,
+    phone: string,
+    _id?: string,
+    smoke?: string,
+    alcohol?: string,
+    canavis?: string,
+    cocaine?: string,
+    background?: background[]
 }

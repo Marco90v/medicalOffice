@@ -1,7 +1,7 @@
 // import { useContext } from "react";
 // import { Context } from "../context";
 // import { useFetch } from "../hooks/inedx";
-import { IFormInput } from "../type";
+import { medicalHistory } from "../type";
 
 export function setToken(token:string) {
     localStorage.setItem("token",token);
@@ -12,13 +12,13 @@ export function getToken() {
 export function removeToken() {
     localStorage.removeItem("token");
 }
-export const initicalStateFormNew:IFormInput = {
+export const initicalStateFormNew:medicalHistory = {
     fullName: "",
     fullSurname: "",
-    identityNumber: "",
+    dni: "",
     gender: "",
     email: "",
-    phone: 0,
+    phone: "",
     specialty:"",
     specialist: "",
     alcohol: "",

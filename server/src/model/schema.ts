@@ -42,3 +42,23 @@ export const especialistaSchema = new Schema({
     dateOfBirth: String,
     dni: String
 });
+
+const background = new Schema({
+    relationship: String,
+    details: String
+});
+
+export const pacientesSchema = new Schema({
+    _id: ObjectId,
+    dni: String,
+    fullName: String,
+    fullSurname: String,
+    gender: String,
+    email: String,
+    phone: String,
+    smoke: String,
+    alcohol: String,
+    canavis: String,
+    cocaine: String,
+    background:[background]
+});

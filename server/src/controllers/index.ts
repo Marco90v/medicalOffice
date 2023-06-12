@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, removeSpecialistReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
+import { loginReqValidator, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -130,6 +130,21 @@ export const deleteSpecialist = (req:Request,res:Response) => {
     if(data){
         services.removeSpecialistDB(data)
         .then((resolve)=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const patient = (req:Request,res:Response) => {
+    const profile = setPatientProfileReqValidator(req.body);
+    if(profile){
+        services.patient(profile)
+        .then(resolve=>{
             res.status(200).json(resolve);
         })
         .catch(error=>{

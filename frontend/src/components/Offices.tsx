@@ -1,8 +1,8 @@
 import { UseFormRegister } from "react-hook-form";
 import { useFetch } from "../hooks/useFetch";
-import { IFormInput, specialistByspecialty, specialty } from "../type";
+import { medicalHistory, specialistByspecialty, specialty } from "../type";
 interface props {
-    register:UseFormRegister<IFormInput>,
+    register:UseFormRegister<medicalHistory>,
 }
 
 function Offices({register}:props) {
@@ -14,7 +14,7 @@ function Offices({register}:props) {
         getFetch(`specialist/${idSpecialty}`);
     };
     return(
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="px-6 py-4 grid grid-cols-4 items-center gap-x-8 gap-y-4 bg-green-200">
             <label htmlFor="">Specialty</label>
             <select
                 className="p-2 rounded bg-white"

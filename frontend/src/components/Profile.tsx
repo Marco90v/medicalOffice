@@ -1,13 +1,13 @@
 import { UseFormRegister } from "react-hook-form";
-import { IFormInput } from "../type";
+import { medicalHistory } from "../type";
 
-function Profile({register}:{register:UseFormRegister<IFormInput>}) {
+function Profile({register}:{register:UseFormRegister<medicalHistory>}) {
     return(
-        <div className="grid grid-cols-4 items-center gap-4">
-            <label htmlFor="identityNumber">Identity number</label>
-            <input type="number" id="identityNumber"
+        <div className="px-6 py-4 grid grid-cols-4 items-center gap-x-8 gap-y-4">
+            <label htmlFor="dni">Identity number</label>
+            <input type="number" id="dni"
                 className="p-2 rounded"
-                { ...register("identityNumber", {required:true}) }
+                { ...register("dni", {required:true}) }
             />
             <label htmlFor="fulName">Full Name</label>
             <input type="text" id="fullName"

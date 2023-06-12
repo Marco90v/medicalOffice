@@ -1,9 +1,9 @@
 import { Control, UseFormRegister, useFieldArray } from "react-hook-form";
-import { IFormInput } from "../type";
+import { medicalHistory } from "../type";
 
 interface props {
-    register:UseFormRegister<IFormInput>,
-    control:Control<IFormInput, any>
+    register:UseFormRegister<medicalHistory>,
+    control:Control<medicalHistory, any>
 }
 
 function Historical({register, control}:props) {
@@ -23,13 +23,13 @@ function Historical({register, control}:props) {
     };
 
     return(
-        <div className="grid grid-cols-4 items-center gap-4">
+        <div className="px-6 py-4 grid grid-cols-4 items-center gap-x-8 gap-y-4">
             {/* ¿Fuma? */}
             <label htmlFor="smoke">Do you smoke?</label>
             <select
                 className="p-2 rounded bg-white"
                 id="smoke"
-                {...register("smoke", {required:true})}
+                {...register("smoke")}
             >
                 <option value=""></option>
                 <option value="yes">Yes</option>
@@ -40,7 +40,7 @@ function Historical({register, control}:props) {
             <select
                 className="p-2 rounded bg-white"
                 id="alcohol"
-                {...register("alcohol", {required:true})}
+                {...register("alcohol")}
             >
                 <option value=""></option>
                 <option value="yes">Yes</option>
@@ -51,7 +51,7 @@ function Historical({register, control}:props) {
             <select
                 className="p-2 rounded bg-white"
                 id="canavis"
-                {...register("canavis", {required:true})}
+                {...register("canavis")}
             >
                 <option value=""></option>
                 <option value="yes">Yes</option>
@@ -62,7 +62,7 @@ function Historical({register, control}:props) {
             <select
                 className="p-2 rounded bg-white"
                 id="cocaine"
-                {...register("cocaine", {required:true})}
+                {...register("cocaine")}
             >
                 <option value=""></option>
                 <option value="yes">Yes</option>
@@ -73,21 +73,26 @@ function Historical({register, control}:props) {
             {
                 fields.map( (field, index) => {
                     return (
-                        <div key={field.id} className="col-span-4 grid grid-cols-4 gap-4 bg-gray-200 p-2 rounded-md" >
+                        <div key={field.id} className="col-span-4 grid grid-cols-4 gap-4 bg-gray-300 p-2 rounded-md" >
                             <label htmlFor="relationship">Relationship</label>
                             <select
                                 className="col-span-3 p-2 rounded bg-white"
                                 id="relationship"
-                                {...register(`background.${index}.relationship` as const, {required:true})}
+                                {...register(`background.${index}.relationship` as const)}
                             >
-                                <option value="0">0</option>
-                                <option value="1">1</option>
+                                <option value=""></option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Paternal Grandfather">Paternal Grandfather</option>
+                                <option value="Paternal Grandmother">Paternal Grandmother</option>
+                                <option value="Maternal Grandfather">Maternal Grandfather</option>
+                                <option value="Maternal Grandmother">Maternal Grandmother</option>
                             </select>
                             <label htmlFor="details">Details</label>
                             <textarea
                                 className="col-span-3 p-2 rounded"
                                 id="details" cols={30} rows={5}
-                                {...register(`background.${index}.details` as const, {required:true})}
+                                {...register(`background.${index}.details` as const)}
                             ></textarea>
                             <button
                                 className="btn-new p-2 bg-red-600 hover:bg-red-500"
