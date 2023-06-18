@@ -19,10 +19,10 @@ function Profile({register}:{register:UseFormRegister<medicalHistory>}) {
                 className="p-2 rounded"
                 { ...register("fullSurname", {required:true}) }
             />
-            <label htmlFor="fullSurname">Date of birth</label>
-            <input type="date" id="fullSurname"
+            <label htmlFor="dateOfBirth">Date of birth</label>
+            <input type="date" id="dateOfBirth"
                 className="p-2 rounded"
-                { ...register("fullSurname", {required:true}) }
+                { ...register("dateOfBirth", {required:true}) }
             />
             <label htmlFor="gender">Gender</label>
             <select

@@ -48,6 +48,12 @@ const background = new Schema({
     details: String
 });
 
+const attention = new Schema({
+    date: String,
+    reason:String,
+    result:String
+});
+
 export const pacientesSchema = new Schema({
     _id: ObjectId,
     dni: String,
@@ -60,5 +66,6 @@ export const pacientesSchema = new Schema({
     alcohol: String,
     canavis: String,
     cocaine: String,
-    background:[background]
+    background:[background],
+    attention: [attention]
 });

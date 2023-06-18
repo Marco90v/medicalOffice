@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
+import { loginReqValidator, patientId, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -140,10 +140,25 @@ export const deleteSpecialist = (req:Request,res:Response) => {
     }
 }
 
-export const patient = (req:Request,res:Response) => {
+export const setPatient = (req:Request,res:Response) => {
     const profile = setPatientProfileReqValidator(req.body);
     if(profile){
-        services.patient(profile)
+        services.setPatient(profile)
+        .then(resolve=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const getPatient = (req:Request<{dni:string}>,res:Response) => {
+    const dni = patientId(req.params);
+    if(dni){
+        services.getPatient(dni)
         .then(resolve=>{
             res.status(200).json(resolve);
         })

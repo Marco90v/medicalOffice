@@ -45,6 +45,11 @@ interface background {
     relationship?: string,
     details?: string
 }
+interface attention {
+    date?:string,
+    reason?:string,
+    result?:string,
+}
 
 interface patient {
     dni: string,
@@ -53,10 +58,16 @@ interface patient {
     gender: string,
     email: string,
     phone: string,
+    dateOfBirth: string,
     _id?: string,
     smoke?: string,
     alcohol?: string,
     canavis?: string,
     cocaine?: string,
-    background?: background[]
+    background?: background[],
+    attention?:attention[]
+}
+
+interface patientDni {
+    dni: string
 }

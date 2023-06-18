@@ -77,19 +77,29 @@ export const removeSpecialistReqValidator = (object:specialist):{_id:string} | f
 }
 
 export const setPatientProfileReqValidator = (object:patient):patient | false => {
-    return 'dni' && 'fullName' && 'fullSurname' && 'gender' && 'email' && 'phone' && 'specialty' && 'specialist' in object
+    return 'dni' && 'fullName' && 'fullSurname' && 'gender' && 'email' && 'phone' && 'specialty' && 'specialist' && 'dateOfBirth' in object
     && typeof (object.dni) === 'string'
     && typeof (object.fullName) === 'string'
     && typeof (object.fullSurname) === 'string'
     && typeof (object.gender) === 'string'
     && typeof (object.email) === 'string'
+    && typeof (object.dateOfBirth) == 'string'
     && typeof (object.phone) === 'string' ?
     {
-        dni:object.dni,
-        fullName:object.fullName,
-        fullSurname:object.fullSurname,
-        gender:object.gender,
-        email:object.email,
-        phone:object.phone,
+        dni: object.dni,
+        fullName: object.fullName,
+        fullSurname: object.fullSurname,
+        gender: object.gender,
+        email: object.email,
+        phone: object.phone,
+        dateOfBirth: object.dateOfBirth,
     } : false
+}
+
+export const patientId = (object:patientDni):patientDni | false => {
+    return 'dni' in object
+    && typeof (object.dni) === 'string' ?
+    {
+        dni: object.dni
+    } : false;
 }

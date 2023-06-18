@@ -27,5 +27,6 @@ export const initicalStateFormNew:medicalHistory = {
     smoke: "",
     background:[
         // {details:"details", relationship:"relationship"}
-    ]
+    ],
+    attention:[]
 };

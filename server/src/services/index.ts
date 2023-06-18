@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { especialidadesShema, especialistaSchema, login, pacientesSchema, pasientesSchema, userSchema } from "../model/schema";
 import { getConnection } from "./conect";
 import mongoose from "mongoose";
+import { patientId } from "../controllers/validator";
 
 export const loginDB = ({user, password}:login) => {
     return new Promise( async (resolve, reject)=>{
@@ -213,11 +214,10 @@ export const removeSpecialistDB = ({_id}:{_id:string}) => {
     });
 }
 
-export const patient = (patient:patient) => {
+export const setPatient = (patient:patient) => {
     return new Promise( async (resolve, reject) => {
         const db = getConnection();
         try{
-            // const { _id, ...rest } = patient;
             const collection = db.model('pacientes', pacientesSchema);
             const newData = {
                 _id: new ObjectId(),
@@ -227,7 +227,24 @@ export const patient = (patient:patient) => {
             const res = await add.save();
             resolve(res);
         }catch(error){
-            reject({error:"removeSpecialistDB query failed"});
+            reject({error:"setPatient query failed"});
+        }
+    });
+}
+
+export const getPatient = (dni:patientDni) => {
+    return new Promise( async (resolve, reject) => {
+        const db = getConnection();
+        try {
+            const collection = db.model('pacientes', pacientesSchema);
+            const pacientes = await collection.find(dni);
+            if(pacientes){
+                resolve(pacientes);
+            }else{
+                reject({error:"No specialists found"});
+            }
+        } catch (error) {
+            reject("getPatient query failed");
         }
     });
 }

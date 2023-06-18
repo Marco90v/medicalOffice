@@ -6,19 +6,41 @@ export interface medicalHistory {
     gender?: string,
     email?: string,
     phone?: string,
+    dateOfBirth?: string,
     specialty?:string,
     specialist?: string,
     smoke?: string,
     alcohol?: string,
     canavis?: string,
     cocaine?: string,
-    reason?: string,
-    result?: string,
+    attention?:{
+        date?: string,
+        reason?: string,
+        result?: string,
+    }[]
     background?:{
         relationship?: string,
         details?: string
     }[]
 }
+type item = "_id" | 
+    "fullName" | 
+    "fullSurname" | 
+    "dni" | 
+    "gender" | 
+    "email" | 
+    "phone" | 
+    "specialty" | 
+    "specialist" | 
+    "smoke" | 
+    "alcohol" | 
+    "canavis" | 
+    "cocaine" | 
+    `attention.${number}.date` | 
+    `attention.${number}.reason` | 
+    `attention.${number}.result` | 
+    `background.${number}.details` |
+    `background.${number}.relationship`;
 export interface specialty {
     _id?: string,
     name?: string,
