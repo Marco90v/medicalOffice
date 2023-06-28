@@ -26,6 +26,9 @@ interface setSpecialty {
 interface specialtyId{
     _id:string
 }
+interface loginId{
+    _id:string
+}
 interface specialistByspecialty {
     idSpecialty: string
 }
@@ -70,4 +73,12 @@ interface patient {
 
 interface patientDni {
     dni: string
+}
+
+interface updateLogin {
+    _id:string,
+    user:string,
+    password:string,
+    rePassword:string,
+    _idUser:string
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, patientId, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateSpecialtyReqValidator } from "./validator";
+import { loginReqValidator, patientId, removeLoginReqValidator, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateLoginReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -10,6 +10,60 @@ export const login = (req:Request,res:Response):void => {
             const token = getToken(resolve);
             res.status(200).send(token);
         }).catch(reject=>res.status(400).json(reject));
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const getLogin = (req:Request,res:Response):void => {
+    services.getLoginDB()
+    .then(resolve=>{
+        res.status(200).json(resolve);
+    })
+    .catch(error=>{
+        res.status(400).json(error);
+    });
+}
+
+export const updateLogin = (req:Request,res:Response):void => {
+    const data = updateLoginReqValidator(req.body);
+    if(data){
+        services.updateLogin(data)
+        .then( (resolve) => {
+            res.status(200).json(resolve);
+        } )
+        .catch( (error) => {
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const newLogin = (req:Request,res:Response) => {
+    const data = updateLoginReqValidator(req.body);
+    if(data){
+        services.newLogin(data)
+        .then( (resolve) => {
+            res.status(200).json(resolve);
+        } )
+        .catch( (error) => {
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+export const deleteLogin = (req:Request,res:Response) => {
+    const data = removeLoginReqValidator(req.body);
+    if(data){
+        services.deleteLogin(data)
+        .then( (resolve) => {
+            res.status(200).json(resolve);
+        } )
+        .catch( (error) => {
+            res.status(400).json(error);
+        });
     }else{
         res.status(400).json({error:"Error in the data structure"});
     }

@@ -6,7 +6,8 @@ const ObjectId = Schema.Types.ObjectId;
 export const login = new Schema({
     _id: ObjectId,
     user: String,
-    password: String
+    password: String,
+    _idUser: String
 });
 
 export const userSchema = new Schema({
@@ -62,6 +63,7 @@ export const pacientesSchema = new Schema({
     gender: String,
     email: String,
     phone: String,
+    dateOfBirth: String,
     smoke: String,
     alcohol: String,
     canavis: String,

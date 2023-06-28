@@ -16,7 +16,7 @@ function Specialty() {
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<specialty>({defaultValues:initialForm});
     const [edit, setEdit] = useState(false);
 
-    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty[]>("http://localhost:3000/api/v1/", "specialty");
     const {getError, setError, updateError, removeError} = error;
 
     useEffect(() => {
@@ -29,12 +29,12 @@ function Specialty() {
         reset();
     };
 
-    const onSubmit:SubmitHandler<specialty> = async (data) => {
+    const onSubmit:SubmitHandler<specialty> = async (data:specialty) => {
         if(edit){
-            updateFetch("specialty", data, callBackUpdateFetch);
+            updateFetch("specialty", (data as specialty[]), callBackUpdateFetch);
         }else{
             const specialty:specialty = {name:data.name};
-            setFetch("specialty", specialty, reset);
+            setFetch("specialty", (specialty as specialty[]), reset);
         }
     };
 
@@ -56,7 +56,8 @@ function Specialty() {
     };
 
     const callBackRemove = (_id?:string) => {
-        deleteFetch("specialty", {_id}, callBackRemoveOk);
+        const id:specialty = {_id};
+        deleteFetch("specialty", (id as specialty[]), callBackRemoveOk);
     };
     
     const remove = (item:specialty) => {

@@ -23,6 +23,68 @@ export const loginDB = ({user, password}:login) => {
     });
 }
 
+export const getLoginDB = () => {
+    return new Promise( async (resolve, reject)=>{
+        const db = getConnection();
+        try {
+            const collection = db.model('login', login);
+            const data = await collection.find({},{"password":0});
+            resolve(data);
+        } catch (error) {
+            reject({error:"No data found"});
+        }
+    } );
+}
+
+export const updateLogin = (data:updateLogin) => {
+    return new Promise( async (resolve, reject)=>{
+        const db = getConnection();
+        try {
+            const collection = db.model('login', login);
+            const {_id, ...rest} = data;
+            const res = await collection.findOneAndUpdate({_id}, {...rest}, {new: true});
+            resolve(res);
+        } catch (error) {
+            reject({error:"updateLogin query failed"});
+        }
+    });
+}
+
+export const newLogin = (data:updateLogin) => {
+    return new Promise( async (resolve, reject)=>{
+        const db = getConnection();
+        try {
+            const collection = db.model('login', login);
+            // const {_id, ...rest} = data;
+            const newData = {
+                _id: new ObjectId(),
+                user: data.user,
+                password: data.password,
+                _idUser:  data._idUser
+            }
+            const add = new collection(newData);
+            const res = await add.save();
+            // const res = await collection.findOneAndUpdate({_id}, {...rest}, {new: true});
+            resolve(res);
+        } catch (error) {
+            reject({error:"updateLogin query failed"});
+        }
+    });
+}
+
+export const deleteLogin = (data:loginId) => {
+    return new Promise( async (resolve, reject)=> {
+        const db = getConnection();
+        try {
+            const collection = db.model('login', login);
+            const res = await collection.findByIdAndDelete(data._id);
+            resolve(res) ;
+        } catch (error) {
+            reject({error:"deleteLogin query failed"});
+        }
+    });
+}
+
 export const getSpecialtyDB = () => {
     return new Promise( async (resolve, reject) => {
         const db = getConnection();
@@ -219,13 +281,18 @@ export const setPatient = (patient:patient) => {
         const db = getConnection();
         try{
             const collection = db.model('pacientes', pacientesSchema);
-            const newData = {
-                _id: new ObjectId(),
-                ...patient,
+            const exist = await collection.findOne({dni:patient.dni});
+            if( !exist ){
+                const newData = {
+                    _id: new ObjectId(),
+                    ...patient,
+                }
+                const add = new collection(newData);
+                const res = await add.save();
+                resolve(res);
+            }else{
+                resolve({msg:"exist"});
             }
-            const add = new collection(newData);
-            const res = await add.save();
-            resolve(res);
         }catch(error){
             reject({error:"setPatient query failed"});
         }
@@ -237,7 +304,7 @@ export const getPatient = (dni:patientDni) => {
         const db = getConnection();
         try {
             const collection = db.model('pacientes', pacientesSchema);
-            const pacientes = await collection.find(dni);
+            const pacientes = await collection.findOne(dni);
             if(pacientes){
                 resolve(pacientes);
             }else{

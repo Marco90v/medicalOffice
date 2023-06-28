@@ -6,8 +6,8 @@ interface props {
 }
 
 function Offices({register}:props) {
-    const {state:specialty} = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");
-    const {state:specialists, getFetch} = useFetch<specialistByspecialty>("http://localhost:3000/api/v1/");
+    const {state:specialty} = useFetch<specialty[]>("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialists, getFetch} = useFetch<specialistByspecialty[]>("http://localhost:3000/api/v1/");
 
     const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
         const idSpecialty:string = item.target.value;

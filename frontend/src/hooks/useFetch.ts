@@ -15,7 +15,7 @@ interface errors {
     removeError:error | undefined,
 }
 interface returnFunc<T> {
-    state: T[] | undefined,
+    state: T | undefined,
     getFetch: (path: string, callBackOk?:func, callBackError?:func) => void,
     setFetch: (path: string, body:T, callBackOk?:func, callBackError?:func) => void,
     updateFetch: (path: string, body:T, callBackOk?:func, callBackError?:func) => void,
@@ -26,7 +26,7 @@ interface returnFunc<T> {
 export function useFetch<T>(baseURL:string, PATH?:string):returnFunc<T> {
 
     const { state: { token } } = useContext(Context);
-    const [state, setState] = useState<T[] | undefined>(undefined);
+    const [state, setState] = useState<T | undefined>(undefined);
     const [getError, setErrorGet] = useState<error | undefined>(undefined);
     const [setError, setErrorSet] = useState<error | undefined>(undefined);
     const [updateError, setErrorUpdate] = useState<error | undefined>(undefined);
@@ -81,9 +81,13 @@ export function useFetch<T>(baseURL:string, PATH?:string):returnFunc<T> {
             if((res as Response).ok) {
                 setState( (items) => {
                     if(items){
-                        return [...items, data];
+                        if(Array.isArray(items)){
+                            return [...items, data];
+                        }else{
+                            return data;
+                        }
                     }else{
-                        return [data];
+                        return data;
                     }
                 });
                 callBackOk && callBackOk();
@@ -105,7 +109,11 @@ export function useFetch<T>(baseURL:string, PATH?:string):returnFunc<T> {
             const data = (res as error).error || await (res as Response).json();
             if((res as Response).ok) {
                 setState( (items) => {
-                    return items?.map( (item) => (item as _id)._id===data._id ? data : item);
+                    if(Array.isArray(items)){
+                        return items?.map( (item) => (item as _id)._id===data._id ? data : item);
+                    }else{
+                        return data;
+                    }
                 });
                 callBackOk && callBackOk();
             } else {
@@ -125,8 +133,12 @@ export function useFetch<T>(baseURL:string, PATH?:string):returnFunc<T> {
         .then( async (res) => {
             const data = (res as error).error || await (res as Response).json();
             if((res as Response).ok) {
-                setState( (items) => {
-                    return items?.filter( (item:T) => (item as _id)._id !== data._id );
+                setState( ( items ) => {
+                    if(Array.isArray(items)){
+                        return items?.filter( (item:T) => (item as _id)._id !== data._id ) as T;
+                    }else{
+                        return undefined;
+                    }
                 });
                 callBackOk && callBackOk();
             } else {

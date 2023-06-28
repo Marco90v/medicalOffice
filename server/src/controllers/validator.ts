@@ -8,6 +8,23 @@ export const loginReqValidator = (object:login):login | false =>{
     } : 
     false;
 }
+export const updateLoginReqValidator = (object:updateLogin):updateLogin | false => {
+    return '_id' && 'user' && 'password' && 'rePassword' && '_idUser'in object
+    && typeof (object._id) === 'string'
+    && typeof (object.user) === 'string'
+    && typeof (object.password) === 'string'
+    && typeof (object.rePassword) === 'string'
+    && typeof (object._idUser) === 'string'
+    && object.password === object.rePassword ?
+    {
+        _id:object._id,
+        user:object.user,
+        password:object.password,
+        rePassword:object.rePassword,
+        _idUser:object._idUser,
+    } : 
+    false;
+}
 export const specialtyReqValidator = (object:setSpecialty):setSpecialty | false => {
     return 'name' in object
     && typeof (object.name) === 'string' ?
@@ -69,6 +86,14 @@ export const specialistReqValidator = (object:specialist):any | false => {
 }
 
 export const removeSpecialistReqValidator = (object:specialist):{_id:string} | false => {
+    return '_id' in object
+    && typeof (object._id) === 'string' ?
+    {
+        _id: object._id
+    } : false;
+}
+
+export const removeLoginReqValidator = (object:loginId):loginId | false => {
     return '_id' in object
     && typeof (object._id) === 'string' ?
     {

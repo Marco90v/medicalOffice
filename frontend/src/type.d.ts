@@ -65,3 +65,10 @@ export interface specialist{
     dateOfBirth?: string,
     dni?: string,
 }
+
+export interface credential {
+    user: string,
+    password: string,
+    rePassword: string,
+    _idUser: string
+}

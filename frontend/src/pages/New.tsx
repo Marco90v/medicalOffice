@@ -11,8 +11,8 @@ function New() {
     const [ edit, setEdit ] = useState(false);
 
     useEffect(() => {
-        if(edit && state && state?.length > 0){
-            Object.entries(state[0]).map( ([key, value]) => setValue( key as item, value) );
+        if(edit && state){
+            Object.entries(state).map( ([key, value]) => setValue( key as item, value) );
         }
     }, [edit, state, setValue]);
     

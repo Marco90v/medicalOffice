@@ -13,6 +13,7 @@ const menu = [
     {name:"Report", link:"report", icon:reportIcon},
     {name:"Specialty", link:"specialty", icon:editIcon},
     {name:"Specialist", link:"specialist", icon:editIcon},
+    {name:"Credentials", link:"credentials", icon:editIcon},
 ];
 
 function Item () {

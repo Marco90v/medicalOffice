@@ -7,6 +7,10 @@ const router = express.Router();
 
 // LOGIN
 router.post('/login', workOutControllers.login);
+router.post('/newLogin', workOutControllers.newLogin);
+router.get('/login',validateToken, workOutControllers.getLogin);
+router.put('/login',validateToken, workOutControllers.updateLogin);
+router.delete('/login',validateToken, workOutControllers.deleteLogin);
 
 // SPECIALTY
 router.get('/specialty', validateToken, workOutControllers.specialty);
