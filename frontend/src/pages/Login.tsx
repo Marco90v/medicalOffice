@@ -5,6 +5,7 @@ import { FiledRequired } from "../components";
 import consultorio from "../assets/consultorio-medico.webp";
 import see from "../assets/show-alt-regular-24.png";
 import noSee from "../assets/low-vision-regular-24.png";
+import { BASE_URL } from "../utils";
 interface IFormInput {
     user: string,
     password: string,
@@ -23,7 +24,7 @@ function Login(){
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try{
-            const resLogin = await fetch("http://localhost:3000/api/v1/login", {
+            const resLogin = await fetch(`${BASE_URL}login`, {
                 method: "POST",
                 body:JSON.stringify(data),
                 headers:{

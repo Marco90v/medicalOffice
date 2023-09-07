@@ -5,6 +5,7 @@ import { FiledRequired, ItemSpecialist } from "../components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { Context } from "../context";
+import { BASE_URL } from "../utils";
 
 const initicalStateForm:specialist = {
     _id: "",
@@ -32,8 +33,8 @@ function Specialist() {
     const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm<specialist>({defaultValues:{...initicalStateForm}});
     const { dateOfBirth, dni, email, lastName, name, phone, sex, specialtyName } = errors;
     const [edit, setEdit] = useState(false);
-    const { state:specialist, setFetch, updateFetch, deleteFetch } = useFetch<specialist>("http://localhost:3000/api/v1/", "specialist");
-    const { state:specialtys } = useFetch<specialty>("http://localhost:3000/api/v1/", "specialty");    
+    const { state:specialist, setFetch, updateFetch, deleteFetch } = useFetch<specialist>(BASE_URL, "specialist");
+    const { state:specialtys } = useFetch<specialty>(BASE_URL, "specialty");    
 
     const cancel = () => {
         reset();

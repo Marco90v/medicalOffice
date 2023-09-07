@@ -1,13 +1,14 @@
 import { UseFormRegister } from "react-hook-form";
 import { useFetch } from "../hooks/useFetch";
+import { BASE_URL } from "../utils";
 // import { medicalHistory, specialistByspecialty, specialty } from "../types";
 interface props {
     register:UseFormRegister<medicalHistory>,
 }
 
 function Offices({register}:props) {
-    const {state:specialty} = useFetch<specialty[]>("http://localhost:3000/api/v1/", "specialty");
-    const {state:specialists, getFetch} = useFetch<specialistByspecialty[]>("http://localhost:3000/api/v1/");
+    const {state:specialty} = useFetch<specialty[]>(BASE_URL, "specialty");
+    const {state:specialists, getFetch} = useFetch<specialistByspecialty[]>(BASE_URL);
 
     const changeSpecialty = (item:React.ChangeEvent<HTMLSelectElement>) => {
         const idSpecialty:string = item.target.value;

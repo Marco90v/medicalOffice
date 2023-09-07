@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired, TableRowError, TableRowLoader, TableSpecialtys } from "../components";
 import { Context } from "../context";
 import { useFetch } from "../hooks/useFetch";
+import { BASE_URL } from "../utils";
 // import { specialty } from "../types";
 
 const initialForm:specialty = {
@@ -16,7 +17,7 @@ function Specialty() {
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<specialty>({defaultValues:initialForm});
     const [edit, setEdit] = useState(false);
 
-    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty[]>("http://localhost:3000/api/v1/", "specialty");
+    const {state:specialtys, setFetch, updateFetch, deleteFetch, error} = useFetch<specialty[]>(BASE_URL, "specialty");
     const {getError, setError, updateError, removeError} = error;
 
     useEffect(() => {

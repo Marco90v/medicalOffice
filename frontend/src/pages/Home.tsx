@@ -1,8 +1,8 @@
 import { useFetch } from "../hooks/useFetch";
+import { BASE_URL } from "../utils";
 
 function Home() {
-    const { state, getFetch, setFetch, error:errorFetch } = useFetch<queue>("http://localhost:3000/api/v1/queue");
-
+    const { state, getFetch, setFetch, error:errorFetch } = useFetch<queue[]>(BASE_URL, "queue");
     return(
         <>Home</>
     );

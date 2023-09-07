@@ -1,13 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired, Historical, Offices, Profile } from "../components";
-import { initicalStateFormNew } from "../utils";
+import { BASE_URL, initicalStateFormNew } from "../utils";
 // import { item, medicalHistory } from "../types";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 
 function New() {
     const { register, handleSubmit, control, reset, getValues, setValue,  formState: { errors } } = useForm<medicalHistory>({defaultValues:initicalStateFormNew});
-    const { state, getFetch, setFetch, error:errorFetch } = useFetch<medicalHistory>("http://localhost:3000/api/v1/");
+    const { state, getFetch, setFetch, error:errorFetch } = useFetch<medicalHistory>(BASE_URL);
     const [ edit, setEdit ] = useState(false);
 
     useEffect(() => {

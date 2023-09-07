@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFetch } from "../hooks/useFetch";
-import { credential, specialist } from "../types";
+// import { credential, specialist } from "../types";
 
 import editIcon from "../assets/edit-alt-solid-24.png";
 import removeIcon from "../assets/trash-alt-solid-24.png";
@@ -9,6 +9,7 @@ import { useContext, useState } from "react";
 import InputPassword from "../components/InputPassword";
 import { FiledRequired } from "../components";
 import { Context } from "../context";
+import { BASE_URL } from "../utils";
 
 const initicalStateFormNew = {
     _id:"0",
@@ -30,8 +31,8 @@ function Credentials() {
     const { dispatch } = useContext(Context);
 
     const { register, handleSubmit, reset, setValue,  formState: { errors } } = useForm<credential>({defaultValues:initicalStateFormNew});
-    const { state:specialists } = useFetch<specialist[]>("http://localhost:3000/api/v1/", "specialist");
-    const { state:logins, updateFetch, setFetch, deleteFetch } = useFetch<login[]>("http://localhost:3000/api/v1/", "login");
+    const { state:specialists } = useFetch<specialist[]>(BASE_URL, "specialist");
+    const { state:logins, updateFetch, setFetch, deleteFetch } = useFetch<login[]>(BASE_URL, "login");
     const [edit, setEdit] = useState(false);
     const [error, setError] = useState<string | undefined>(undefined);
 

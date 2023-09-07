@@ -3,6 +3,8 @@
 // import { useFetch } from "../hooks/inedx";
 // import { medicalHistory } from "../types";
 
+export const BASE_URL = "http://localhost:3000/api/v1/";
+
 export function setToken(token:string) {
     localStorage.setItem("token",token);
 }
