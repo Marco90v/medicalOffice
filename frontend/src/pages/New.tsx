@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Historical, Offices, Profile } from "../components";
+import { FiledRequired, Historical, Offices, Profile } from "../components";
 import { initicalStateFormNew } from "../utils";
 import { item, medicalHistory } from "../type";
 import { useFetch } from "../hooks/useFetch";
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 function New() {
     const { register, handleSubmit, control, reset, getValues, setValue,  formState: { errors } } = useForm<medicalHistory>({defaultValues:initicalStateFormNew});
-    const { state, getFetch, setFetch } = useFetch<medicalHistory>("http://localhost:3000/api/v1/");
+    const { state, getFetch, setFetch, error:errorFetch } = useFetch<medicalHistory>("http://localhost:3000/api/v1/");
     const [ edit, setEdit ] = useState(false);
 
     useEffect(() => {
@@ -78,6 +78,9 @@ function New() {
                     >
                         Send to queue
                     </button>
+                    {
+                        errorFetch.getError && <FiledRequired text={errorFetch.getError?.error || ""} style="col-span-3 mt-4" />
+                    }
                 </div>
             </form>
         </div>
