@@ -339,7 +339,35 @@ export const getQueue = () => {
         const db = getConnection();
         try {
             const collection = db.model('cola', queueSchema);
-            const queue:patientQueue[] | undefined = await collection.find({});
+            // const queue:patientQueue[] | undefined = await collection.find({});
+            const queue:patientQueue[] | undefined = await collection.aggregate([
+                {
+                  $match: {
+                    'specialist': '64f9478ac4b520c313d12c62', 
+                    'specialty': '64f94706c4b520c313d12c5c'
+                  }
+                }, 
+                {
+                  $lookup: {
+                    'from': 'pacientes', 
+                    'let': { 'searchDNI': '$dni' }, 
+                    'pipeline': [
+                      { $match: { '$expr': { '$eq': [ '$dni', '$$searchDNI' ] } } },
+                      { $project: { '_id': 0 } }
+                    ], 
+                    'as': 'result'
+                  }
+                }, 
+                { $unwind: { 'path': '$result' } },
+                {
+                  $addFields: {
+                    'patient': {
+                      $concat: [ '$result.fullName', ' ', '$result.fullSurname' ]
+                    }
+                  }
+                },
+                { $project: { 'result': 0 } }
+              ]);
             if(queue){
                 resolve(queue);
             }else{
