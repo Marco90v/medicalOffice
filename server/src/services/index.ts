@@ -308,7 +308,7 @@ export const getPatient = (dni:patientDni) => {
             if(pacientes){
                 resolve(pacientes);
             }else{
-                reject({error:"No specialists found"});
+                reject({error:"Patient not found"});
             }
         } catch (error) {
             reject("getPatient query failed");
