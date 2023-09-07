@@ -32,7 +32,15 @@ export function useFetch<T>(baseURL:string, PATH?:string):returnFunc<T> {
     const [updateError, setErrorUpdate] = useState<error | undefined>(undefined);
     const [removeError, setErrorRemove] = useState<error | undefined>(undefined);
 
+    const resetErrors = () => {
+        setErrorGet(undefined);
+        setErrorSet(undefined);
+        setErrorUpdate(undefined);
+        setErrorRemove(undefined);
+    };
+
     const action = useCallback( async (url:string, method:string, body?:T):Promise<Response | error> => {
+        resetErrors();
         const res:Response | error = await fetch(url, {
                 method,
                 body: JSON.stringify(body),
