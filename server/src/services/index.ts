@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { especialidadesShema, especialistaSchema, login, pacientesSchema, pasientesSchema, userSchema } from "../model/schema";
+import { especialidadesShema, especialistaSchema, login, pacientesSchema, pasientesSchema, queueSchema, userSchema } from "../model/schema";
 import { getConnection } from "./conect";
 import mongoose from "mongoose";
 import { patientId } from "../controllers/validator";
@@ -312,6 +312,24 @@ export const getPatient = (dni:patientDni) => {
             }
         } catch (error) {
             reject("getPatient query failed");
+        }
+    });
+}
+
+export const setQueue = (patient:patientQueue) => {
+    return new Promise( async (resolve, reject) => {
+        const db = getConnection();
+        try {
+            const collection = db.model('cola', queueSchema);
+            const newData = {
+                _id: new ObjectId(),
+                ...patient,
+            }
+            const add = new collection(newData);
+            const res = await add.save();
+            resolve(res);
+        } catch (error) {
+            reject({error:"It occurred at the time of adding to the queue."});
         }
     });
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { loginReqValidator, patientId, removeLoginReqValidator, removeSpecialistReqValidator, setPatientProfileReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateLoginReqValidator, updateSpecialtyReqValidator } from "./validator";
+import { loginReqValidator, patientId, removeLoginReqValidator, removeSpecialistReqValidator, setPatientProfileReqValidator, setQueueReqValidator, specialistByspecialtyReqValidator, specialistReqValidator, specialtyIdReqValidator, specialtyReqValidator, updateLoginReqValidator, updateSpecialtyReqValidator } from "./validator";
 import * as services from "../services";
 import { getToken } from "./token";
 
@@ -199,7 +199,7 @@ export const setPatient = (req:Request,res:Response) => {
     if(profile){
         services.setPatient(profile)
         .then(resolve=>{
-            res.status(200).json(resolve);
+            setQueue(req,res);
         })
         .catch(error=>{
             res.status(400).json(error);
@@ -213,6 +213,21 @@ export const getPatient = (req:Request<{dni:string}>,res:Response) => {
     const dni = patientId(req.params);
     if(dni){
         services.getPatient(dni)
+        .then(resolve=>{
+            res.status(200).json(resolve);
+        })
+        .catch(error=>{
+            res.status(400).json(error);
+        });
+    }else{
+        res.status(400).json({error:"Error in the data structure"});
+    }
+}
+
+export const setQueue = (req:Request, res:Response) => {
+    const queue = setQueueReqValidator(req.body);
+    if(queue){
+        services.setQueue(queue)
         .then(resolve=>{
             res.status(200).json(resolve);
         })

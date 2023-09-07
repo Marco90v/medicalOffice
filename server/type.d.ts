@@ -71,6 +71,11 @@ interface patient {
     attention?:attention[]
 }
 
+interface patientComplet extends patient{
+    specialist: string,
+    specialty: string,
+}
+
 interface patientDni {
     dni: string
 }
@@ -81,4 +86,10 @@ interface updateLogin {
     password:string,
     rePassword:string,
     _idUser:string
+}
+
+interface patientQueue {
+    dni: string,
+    specialist: string,
+    specialty: string,
 }

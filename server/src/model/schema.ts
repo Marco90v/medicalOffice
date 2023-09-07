@@ -71,3 +71,10 @@ export const pacientesSchema = new Schema({
     background:[background],
     attention: [attention]
 });
+
+export const queueSchema = new Schema({
+    _id : ObjectId,
+    dni: String,
+    specialist: String,
+    specialty: String,
+});

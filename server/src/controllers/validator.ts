@@ -128,3 +128,15 @@ export const patientId = (object:patientDni):patientDni | false => {
         dni: object.dni
     } : false;
 }
+
+export const setQueueReqValidator = (object:patientComplet):patientQueue | false => {
+    return 'dni' && 'specialist' && 'specialty' in object
+    && typeof (object.dni) === 'string'
+    && typeof (object.specialist) === 'string'
+    && typeof (object.specialty) === 'string' ?
+    {
+        dni:object.dni,
+        specialist:object.specialist,
+        specialty:object.specialty
+    } : false;
+}
