@@ -47,7 +47,7 @@ function close() {
   const db = getConnection();
   db.disconnect();
   server.close(()=>{
-    process.exit();
+    process.exit(0);
   });
 }
 
