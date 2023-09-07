@@ -1,5 +1,5 @@
 import { useFetch } from "../hooks/useFetch";
-import { specialist, specialty } from "../type";
+// import { specialist, specialty } from "../types";
 import iconSpinner from "../assets/loader-alt-regular-24.png";
 import { FiledRequired, ItemSpecialist } from "../components";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -102,7 +102,7 @@ function Specialist() {
                 >
                     <option key="0" value="0"></option>
                     {
-                        specialtys?.map( (item) => <option key={item._id} value={item._id}>{item.name}</option> )
+                        (specialtys as specialty[])?.map( (item) => <option key={item._id} value={item._id}>{item.name}</option> )
                     }
                 </select>
                 <label className="font-black" htmlFor="phone">Phone</label>
@@ -153,7 +153,9 @@ function Specialist() {
             {
                 !specialist ? <LoaderSpecialist /> :
                 <ul className="mt-4">
-                    { specialist.map( item => <ItemSpecialist key={item._id} item={item} setValue={setValue} setEdit={setEdit} remove={remove} /> ) }
+                    {
+                        (specialist as specialist[])?.map( item => <ItemSpecialist key={item._id} item={item} setValue={setValue} setEdit={setEdit} remove={remove} /> )
+                    }
                 </ul>
             }
         </div>

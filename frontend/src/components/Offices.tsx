@@ -1,6 +1,6 @@
 import { UseFormRegister } from "react-hook-form";
 import { useFetch } from "../hooks/useFetch";
-import { medicalHistory, specialistByspecialty, specialty } from "../type";
+// import { medicalHistory, specialistByspecialty, specialty } from "../types";
 interface props {
     register:UseFormRegister<medicalHistory>,
 }

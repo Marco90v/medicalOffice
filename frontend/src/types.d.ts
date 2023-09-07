@@ -1,4 +1,4 @@
-export interface medicalHistory {
+ interface medicalHistory {
     _id?: string,
     fullName?: string,
     fullSurname?: string,
@@ -41,19 +41,19 @@ type item = "_id" |
     `attention.${number}.result` | 
     `background.${number}.details` |
     `background.${number}.relationship`;
-export interface specialty {
+ interface specialty {
     _id?: string,
     name?: string,
 }
-export interface error {
+ interface error {
     error: string
 }
-export interface specialistByspecialty{
+ interface specialistByspecialty{
     _id: string,
     name: string,
     lastName: string
 }
-export interface specialist{
+ interface specialist{
     _id?: string,
     name?: string,
     lastName?: string,
@@ -66,9 +66,16 @@ export interface specialist{
     dni?: string,
 }
 
-export interface credential {
+ interface credential {
     user: string,
     password: string,
     rePassword: string,
     _idUser: string
+}
+
+interface queue {
+    _id: "64f96f0cadf5c68842500442",
+    dni: "111111",
+    specialist: "64f9478ac4b520c313d12c62",
+    specialty: "64f94706c4b520c313d12c5c",
 }

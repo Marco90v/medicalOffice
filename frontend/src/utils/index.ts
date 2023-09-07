@@ -1,7 +1,7 @@
 // import { useContext } from "react";
 // import { Context } from "../context";
 // import { useFetch } from "../hooks/inedx";
-import { medicalHistory } from "../type";
+// import { medicalHistory } from "../types";
 
 export function setToken(token:string) {
     localStorage.setItem("token",token);

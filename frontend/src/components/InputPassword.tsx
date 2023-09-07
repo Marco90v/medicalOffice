@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { credential } from "../type";
+// import { credential } from "../types";
 import { UseFormRegister } from "react-hook-form";
 
 import see from "../assets/show-alt-regular-24.png";

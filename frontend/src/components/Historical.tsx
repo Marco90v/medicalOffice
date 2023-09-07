@@ -1,5 +1,5 @@
 import { Control, UseFormRegister, useFieldArray } from "react-hook-form";
-import { medicalHistory } from "../type";
+// import { medicalHistory } from "../types";
 
 interface props {
     register:UseFormRegister<medicalHistory>,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import iconArrowDown from "../assets/chevron-down-regular-24.png";
 import iconEdit from "../assets/edit-alt-solid-24.png";
 import iconRemove from "../assets/trash-alt-solid-24.png";
-import { specialist } from "../type";
+// import { specialist } from "../types";
 import { UseFormSetValue } from "react-hook-form";
 
 interface props{

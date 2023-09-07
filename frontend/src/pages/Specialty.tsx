@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired, TableRowError, TableRowLoader, TableSpecialtys } from "../components";
 import { Context } from "../context";
 import { useFetch } from "../hooks/useFetch";
-import { specialty } from "../type";
+// import { specialty } from "../types";
 
 const initialForm:specialty = {
     _id:"",

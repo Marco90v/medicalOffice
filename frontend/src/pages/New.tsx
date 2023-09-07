@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FiledRequired, Historical, Offices, Profile } from "../components";
 import { initicalStateFormNew } from "../utils";
-import { item, medicalHistory } from "../type";
+// import { item, medicalHistory } from "../types";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 

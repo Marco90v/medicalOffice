@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFetch } from "../hooks/useFetch";
-import { credential, specialist } from "../type";
+import { credential, specialist } from "../types";
 
 import editIcon from "../assets/edit-alt-solid-24.png";
 import removeIcon from "../assets/trash-alt-solid-24.png";

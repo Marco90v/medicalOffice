@@ -1,6 +1,6 @@
 import editIcon from "../assets/edit-alt-solid-24.png";
 import removeIcon from "../assets/trash-alt-solid-24.png";
-import { specialty } from "../type";
+// import { specialty } from "../types";
 
 interface props {
     item:specialty,

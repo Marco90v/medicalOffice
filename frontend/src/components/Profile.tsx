@@ -1,5 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
-import { medicalHistory } from "../type";
+// import { medicalHistory } from "../types";
 
 function Profile({register}:{register:UseFormRegister<medicalHistory>}) {
     return(
