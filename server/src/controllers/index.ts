@@ -238,3 +238,13 @@ export const setQueue = (req:Request, res:Response) => {
         res.status(400).json({error:"Error in the data structure"});
     }
 }
+
+export const getQueue = (req:Request, res:Response) => {
+    services.getQueue()
+    .then(resolve=>{
+        res.status(200).json(resolve);
+    })
+    .catch(error=>{
+        res.status(400).json(error);
+    });
+}

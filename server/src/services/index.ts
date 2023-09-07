@@ -333,3 +333,20 @@ export const setQueue = (patient:patientQueue) => {
         }
     });
 }
+
+export const getQueue = () => {
+    return new Promise( async (resolve, reject) => {
+        const db = getConnection();
+        try {
+            const collection = db.model('cola', queueSchema);
+            const queue:patientQueue[] | undefined = await collection.find({});
+            if(queue){
+                resolve(queue);
+            }else{
+                reject({error:"Error in retrieving the queue"});
+            }
+        } catch (error) {
+            
+        }
+    });
+}

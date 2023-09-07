@@ -25,9 +25,12 @@ router.post('/specialist', validateToken, workOutControllers.setSpecialist);
 router.put('/specialist', validateToken, workOutControllers.updateSpecialist);
 router.delete('/specialist', validateToken, workOutControllers.deleteSpecialist);
 
-// patient
+// PATIENT
 router.get('/patient/:dni', validateToken, workOutControllers.getPatient);
 router.post('/patient', validateToken, workOutControllers.setPatient);
+
+//QUEUE
+router.get('/queue', validateToken, workOutControllers.getQueue)
 
 
 export default router;
