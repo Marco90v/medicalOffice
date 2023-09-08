@@ -3,6 +3,7 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useLoca
 import { Context } from "../context";
 import { Dashboard, Home, Login, New, Specialist, Specialty } from "../pages";
 import Credentials from "../pages/Credentials";
+import Patient from "../pages/Patient";
 
 const VerifySession = () => {
   const { state:{token} } = useContext(Context);
@@ -33,6 +34,7 @@ export const router = createBrowserRouter(
           <Route path="specialty" element={<Specialty />} />
           <Route path="Specialist" element={<Specialist />} />
           <Route path="Credentials" element={<Credentials />} />
+          <Route path="Patient/:dni" element={<Patient />} />
         </Route>
       ,
     ])
