@@ -1,8 +1,12 @@
+import jwt from 'jsonwebtoken';
+import { Request } from "express";
 import { ObjectId } from "mongodb";
 import { especialidadesShema, especialistaSchema, login, pacientesSchema, pasientesSchema, queueSchema, userSchema } from "../model/schema";
 import { getConnection } from "./conect";
 import mongoose from "mongoose";
-import { patientId } from "../controllers/validator";
+// import { patientId } from "../controllers/validator";
+import { Roles } from "../utils/definitions"
+import { decryptToken } from "../controllers/token";
 
 export const loginDB = ({user, password}:login) => {
     return new Promise( async (resolve, reject)=>{
@@ -12,8 +16,19 @@ export const loginDB = ({user, password}:login) => {
             const data = await collection.findOne({user, password});
             if(data){
                 const users = db.model('users', userSchema);
-                const user = await users.findOne( {user:data.user}, {"name":1, "user":1, "_id":1} );
-                resolve(user);
+                const user = await users.findOne( {_id:data._idUser}, {"_id":1, "role":1} );
+                if(user?.role === Roles.specialist){
+                    const specialists = db.model('especialista', especialistaSchema);
+                    const specialist = await specialists.findOne( {_idUser: user?._id.toString()}, {"_id":1, "specialty":1} );
+                    const session = {
+                        role: user?.role,
+                        specialist: specialist?._id.toString(),
+                        specialty: specialist?.specialty
+                    }
+                    resolve(session);
+                }else{
+                    resolve(user);
+                }
             }else{
                 reject({error:"Incorrect credentials, please verify the data"});
             }
@@ -334,8 +349,10 @@ export const setQueue = (patient:patientQueue) => {
     });
 }
 
-export const getQueue = () => {
+export const getQueue = (req:Request) => {
     return new Promise( async (resolve, reject) => {
+        const dataUser = decryptToken(req);
+        // console.log(dataUser);
         const db = getConnection();
         try {
             const collection = db.model('cola', queueSchema);
@@ -343,8 +360,8 @@ export const getQueue = () => {
             const queue:patientQueue[] | undefined = await collection.aggregate([
                 {
                   $match: {
-                    'specialist': '64f9478ac4b520c313d12c62', 
-                    'specialty': '64f94706c4b520c313d12c5c'
+                    'specialist': (dataUser as dataUser).specialist, 
+                    'specialty': (dataUser as dataUser).specialty
                   }
                 }, 
                 {

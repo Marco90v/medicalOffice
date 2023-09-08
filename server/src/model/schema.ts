@@ -77,4 +77,5 @@ export const queueSchema = new Schema({
     dni: String,
     specialist: String,
     specialty: String,
+    patient: String
 });

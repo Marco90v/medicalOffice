@@ -93,3 +93,12 @@ interface patientQueue {
     specialist: string,
     specialty: string,
 }
+
+interface error {
+    error:string
+}
+interface dataUser {
+    role: string,
+    specialist: string,
+    specialty: string
+}

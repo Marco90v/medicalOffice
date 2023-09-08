@@ -240,7 +240,7 @@ export const setQueue = (req:Request, res:Response) => {
 }
 
 export const getQueue = (req:Request, res:Response) => {
-    services.getQueue()
+    services.getQueue(req)
     .then(resolve=>{
         res.status(200).json(resolve);
     })

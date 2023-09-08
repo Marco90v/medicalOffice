@@ -74,8 +74,9 @@ type item = "_id" |
 }
 
 interface queue {
-    _id: "64f96f0cadf5c68842500442",
-    dni: "111111",
-    specialist: "64f9478ac4b520c313d12c62",
-    specialty: "64f94706c4b520c313d12c5c",
+    _id: string,
+    dni: string,
+    specialist: string,
+    specialty: string,
+    patient: string
 }
