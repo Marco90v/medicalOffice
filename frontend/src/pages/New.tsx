@@ -1,37 +1,39 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FiledRequired, Historical, Offices, Profile } from "../components";
+import { FiledRequired, FormPatient, Offices } from "../components";
 import { BASE_URL, initicalStateFormNew } from "../utils";
-// import { item, medicalHistory } from "../types";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 
 function New() {
-    const { register, handleSubmit, control, reset, getValues, setValue,  formState: { errors } } = useForm<medicalHistory>({defaultValues:initicalStateFormNew});
-    const { state, getFetch, setFetch, error:errorFetch } = useFetch<medicalHistory>(BASE_URL);
-    const [ edit, setEdit ] = useState(false);
+    const { register, handleSubmit, reset, getValues, setValue } =
+        useForm<medicalHistory>({ defaultValues: initicalStateFormNew });
+    const {
+        state,
+        getFetch,
+        setFetch,
+        error: errorFetch,
+    } = useFetch<medicalHistory>(BASE_URL);
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
-        if(edit && state){
-            Object.entries(state).map( ([key, value]) => setValue( key as item, value) );
+        if (edit && state) {
+            Object.entries(state).map(([key, value]) =>
+                setValue(key as item, value)
+            );
         }
     }, [edit, state, setValue]);
-    
+
     const callBackOkSet = () => {
         reset();
     };
 
-    const onSubmit:SubmitHandler<medicalHistory>  = (data) => {
+    const onSubmit: SubmitHandler<medicalHistory> = (data) => {
         setFetch("patient", data, callBackOkSet);
-        // console.log(data);
     };
-
-    // const callBackOkSearch = () => {
-    //     (state && state?.length > 0) && Object.entries(state[0]).map(([key, value])=> setValue( key as item, value) );
-    // };
 
     const search = () => {
         const dni = getValues("dni");
-        getFetch(`patient/${dni}`, ()=>setEdit(true));
+        getFetch(`patient/${dni}`, () => setEdit(true));
     };
 
     const clean = () => {
@@ -39,51 +41,43 @@ function New() {
         setEdit(false);
     };
 
-    return(
-        <div
-            className="flex items-center justify-center w-10/12 m-auto h-full"
+    return (
+        <FormPatient
+            onSubmit={onSubmit}
+            register={register}
+            handleSubmit={handleSubmit}
         >
-            <form
-                className="bg-gray-200 rounded-md flex flex-col gap-y-1 w-full"
-                onSubmit={handleSubmit(onSubmit)}
-            >
-                <Profile register={register} />
-                <Offices register={register} />
-                {/* <Historical register={register} control={control} /> */}
-                {/* <div className="px-6 py-4 grid grid-cols-3 gap-4 items-center">
-                    <label htmlFor="reason">Reason for the consultation?</label>
-                    <input
-                        className="py-2 px-2 col-span-2 rounded"
-                        type="text" id="reason"
-                        { ...register("reason") }
+            <Offices register={register} />
+            <div className="p-4 grid grid-cols-3 gap-x-8">
+                <button
+                    type="button"
+                    onClick={search}
+                    className="btn-new bg-blue-500 hover:bg-blue-400"
+                >
+                    search
+                </button>
+                <button
+                    type="button"
+                    onClick={clean}
+                    disabled={!edit}
+                    className="btn-new bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400"
+                >
+                    Reset
+                </button>
+                <button
+                    type="submit"
+                    className="btn-new bg-green-500 hover:bg-green-400"
+                >
+                    Send to queue
+                </button>
+                {errorFetch.getError && (
+                    <FiledRequired
+                        text={errorFetch.getError?.error || ""}
+                        style="col-span-3 mt-4"
                     />
-                    <label htmlFor="result">Result of the consultation</label>
-                    <input
-                        className="py-2 px-2 col-span-2 rounded"
-                        type="text" id="result"
-                        { ...register("result") }
-                    />
-                </div> */}
-                <div className="p-4 grid grid-cols-3 gap-x-8">
-                    <button type="button" onClick={search}
-                        className="btn-new bg-blue-500 hover:bg-blue-400"
-                    >
-                        search
-                    </button>
-                    <button type="button" onClick={clean} disabled={!edit}
-                        className="btn-new bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400"
-                    >Reset</button>
-                    <button type="submit"
-                        className="btn-new bg-green-500 hover:bg-green-400"
-                    >
-                        Send to queue
-                    </button>
-                    {
-                        errorFetch.getError && <FiledRequired text={errorFetch.getError?.error || ""} style="col-span-3 mt-4" />
-                    }
-                </div>
-            </form>
-        </div>
+                )}
+            </div>
+        </FormPatient>
     );
 }
 

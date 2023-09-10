@@ -1,14 +1,29 @@
 import { useParams } from "react-router-dom";
-import { BASE_URL } from "../utils";
+import { BASE_URL, initicalStateFormNew } from "../utils";
 import { useFetch } from "../hooks/useFetch";
+import { FormPatient, Historical } from "../components";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
-function Patient(){
+function Patient() {
     const { dni } = useParams();
-    // const { state, getFetch, setFetch, error:errorFetch } = useFetch<queue[]>(BASE_URL, "patient");
+    const { state } = useFetch<medicalHistory>(BASE_URL, `patient/${dni}`);
 
-    console.log(dni);
-    return(
-        <></>
+    const { register, handleSubmit, control, setValue } = useForm<medicalHistory>({ defaultValues: initicalStateFormNew });
+
+    useEffect(() => {
+        if (state) {
+            Object.entries(state).map(([key, value]) => setValue(key as item, value));
+        }
+    }, [state, setValue]);
+
+    const onSubmit = () => {
+        null;
+    };
+    return (
+        <FormPatient onSubmit={onSubmit} register={register} handleSubmit={handleSubmit}>
+            <Historical register={register} control={control} />
+        </FormPatient>
     );
 }
 export default Patient;
