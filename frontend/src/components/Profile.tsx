@@ -1,49 +1,42 @@
 import { UseFormRegister } from "react-hook-form";
+import InputBasic from "./InputBasic";
+import InputSelect from "./InputSelect";
 // import { medicalHistory } from "../types";
 
-function Profile({register}:{register:UseFormRegister<medicalHistory>}) {
-    return(
+type props = {
+    register: UseFormRegister<medicalHistory>;
+    disabled?: boolean;
+};
+
+const itemsSelect: itemsSelect[] = [
+    { value: "male", text: "Male" },
+    { value: "female", text: "Female" },
+    { value: "other", text: "Other" },
+];
+
+function Profile({ register, disabled = false }: props) {
+    return (
         <div className="px-6 py-4 grid grid-cols-4 items-center gap-x-8 gap-y-4">
             <label htmlFor="dni">Identity number</label>
-            <input type="number" id="dni"
-                className="p-2 rounded"
-                { ...register("dni", {required:true}) }
-            />
+            <InputBasic key={"dni"} type="number" name={"dni"} register={register} disabled={disabled} />
+
             <label htmlFor="fulName">Full Name</label>
-            <input type="text" id="fullName"
-                className="p-2 rounded"
-                { ...register("fullName", {required:true}) }
-            />
+            <InputBasic key={"fulName"} type="text" name={"fullName"} register={register} disabled={disabled} />
+
             <label htmlFor="fullSurname">Full Surnames</label>
-            <input type="text" id="fullSurname"
-                className="p-2 rounded"
-                { ...register("fullSurname", {required:true}) }
-            />
+            <InputBasic key={"fullSurname"} type="text" name={"fullSurname"} register={register} disabled={disabled} />
+
             <label htmlFor="dateOfBirth">Date of birth</label>
-            <input type="date" id="dateOfBirth"
-                className="p-2 rounded"
-                { ...register("dateOfBirth", {required:true}) }
-            />
+            <InputBasic key={"dateOfBirth"} type="date" name={"dateOfBirth"} register={register} disabled={disabled} />
+
             <label htmlFor="gender">Gender</label>
-            <select
-                className="p-2 rounded bg-white"
-                {...register("gender", {required:true})}
-            >
-                <option value=""></option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+            <InputSelect key={"gender"} register={register} name={"gender"} itemsSelect={itemsSelect} disabled={disabled} />
+
             <label htmlFor="email">Email</label>
-            <input type="email" id="email"
-                className="p-2 rounded"
-                { ...register("email") }
-            />
+            <InputBasic key={"email"} type="email" name={"email"} register={register} disabled={disabled} />
+
             <label htmlFor="phone">Phone</label>
-            <input type="number" id="phone"
-                className="p-2 rounded"
-                { ...register("phone", {required:true}) }
-            />
+            <InputBasic key={"phone"} type="number" name={"phone"} register={register} disabled={disabled} />
         </div>
     );
 }

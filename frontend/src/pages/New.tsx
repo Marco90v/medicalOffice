@@ -5,21 +5,13 @@ import { useFetch } from "../hooks/useFetch";
 import { useEffect, useState } from "react";
 
 function New() {
-    const { register, handleSubmit, reset, getValues, setValue } =
-        useForm<medicalHistory>({ defaultValues: initicalStateFormNew });
-    const {
-        state,
-        getFetch,
-        setFetch,
-        error: errorFetch,
-    } = useFetch<medicalHistory>(BASE_URL);
+    const { register, handleSubmit, reset, getValues, setValue } = useForm<medicalHistory>({ defaultValues: initicalStateFormNew });
+    const { state, getFetch, setFetch, error: errorFetch } = useFetch<medicalHistory>(BASE_URL);
     const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         if (edit && state) {
-            Object.entries(state).map(([key, value]) =>
-                setValue(key as item, value)
-            );
+            Object.entries(state).map(([key, value]) => setValue(key as item, value));
         }
     }, [edit, state, setValue]);
 
@@ -42,40 +34,19 @@ function New() {
     };
 
     return (
-        <FormPatient
-            onSubmit={onSubmit}
-            register={register}
-            handleSubmit={handleSubmit}
-        >
+        <FormPatient onSubmit={onSubmit} register={register} handleSubmit={handleSubmit}>
             <Offices register={register} />
             <div className="p-4 grid grid-cols-3 gap-x-8">
-                <button
-                    type="button"
-                    onClick={search}
-                    className="btn-new bg-blue-500 hover:bg-blue-400"
-                >
+                <button type="button" onClick={search} className="btn-new bg-blue-500 hover:bg-blue-400">
                     search
                 </button>
-                <button
-                    type="button"
-                    onClick={clean}
-                    disabled={!edit}
-                    className="btn-new bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400"
-                >
+                <button type="button" onClick={clean} disabled={!edit} className="btn-new bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400">
                     Reset
                 </button>
-                <button
-                    type="submit"
-                    className="btn-new bg-green-500 hover:bg-green-400"
-                >
+                <button type="submit" className="btn-new bg-green-500 hover:bg-green-400">
                     Send to queue
                 </button>
-                {errorFetch.getError && (
-                    <FiledRequired
-                        text={errorFetch.getError?.error || ""}
-                        style="col-span-3 mt-4"
-                    />
-                )}
+                {errorFetch.getError && <FiledRequired text={errorFetch.getError?.error || ""} style="col-span-3 mt-4" />}
             </div>
         </FormPatient>
     );

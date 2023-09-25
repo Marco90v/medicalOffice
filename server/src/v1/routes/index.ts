@@ -20,18 +20,10 @@ router.delete("/specialty", validateToken, workOutControllers.deleteSpecialty);
 
 // SPECIALIST
 router.get("/specialist", validateToken, workOutControllers.specialist);
-router.get(
-  "/specialist/:idSpecialty",
-  validateToken,
-  workOutControllers.specialistByspecialty
-);
+router.get("/specialist/:idSpecialty", validateToken, workOutControllers.specialistByspecialty);
 router.post("/specialist", validateToken, workOutControllers.setSpecialist);
 router.put("/specialist", validateToken, workOutControllers.updateSpecialist);
-router.delete(
-  "/specialist",
-  validateToken,
-  workOutControllers.deleteSpecialist
-);
+router.delete("/specialist", validateToken, workOutControllers.deleteSpecialist);
 
 // PATIENT
 router.get("/patient/:dni", validateToken, workOutControllers.getPatient);
